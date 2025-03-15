@@ -1,11 +1,7 @@
 import DonationItem from "@/components/donor/donation-item.component";
-import GenericImage from "@/components/generic/generic-image.component";
+import GenericImage from "@/components/generic/generic-image/generic-image.component";
 import { DummyDonations } from "@/constants";
-import { BiSolidBadgeCheck } from "react-icons/bi";
-import { FaAward } from "react-icons/fa";
-import { HiUserGroup } from "react-icons/hi";
-import { IoIosCheckmarkCircle } from "react-icons/io";
-import { LuClock4 } from "react-icons/lu";
+
 import { Bar } from "react-chartjs-2"; // Import Bar chart from react-chartjs-2
 import {
     Chart as ChartJS,
@@ -16,7 +12,9 @@ import {
     Tooltip,
     Legend,
 } from "chart.js";
-import { VerticalScrollableWrapper } from "@/styles/global.styles";
+import { NoScrollbarConatiner, VerticalScrollableWrapper } from "@/styles/global.styles";
+import DashBoardCard from "@/components/generic/dashbord-card/dashboard-card.component";
+import { FaAward, HiUserGroup, IoIosCheckmarkCircle, LuClock4, SiSololearn,BiSolidBadgeCheck } from "@/assets";
 
 // Register Chart.js components
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
@@ -67,8 +65,8 @@ const DonorDashboard = () => {
     };
 
     return (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[70%_30%] bg-white">
-            <aside className="flex flex-col items-start justify-start p-4 border-r-[1px] border-black/30">
+        <NoScrollbarConatiner className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[70%_30%] bg-white">
+            <aside className="flex flex-col items-start justify-start px-4 pt-4 border-r-[1px] border-black/30 w-full">
                 <div className="flex items-center justify-between w-full">
                     <div className="w-fit flex items-center justify-start gap-2">
                         <div className="h-[3rem] w-[3rem] rounded-full bg-blue-600 flex items-center justify-center">
@@ -86,12 +84,12 @@ const DonorDashboard = () => {
                         Donate
                     </span>
                 </div>
-                <div className="grid grid-cols-1 lg:grid-cols-2 items-center">
+                <div className="grid grid-cols-1 lg:grid-cols-2 items-center w-full">
                     <div className="p-4 rounded-xl bg-white flex flex-col gap-2">
                         <div className="flex flex-col items-center justify-center gap-4">
                             <div className="relative h-[8rem] aspect-square rounded-full border-[0.1rem] border-gray-400/60 p-1 border-r-blue-600">
                                 <GenericImage className="w-full h-full rounded-full overflow-hidden" />
-                                <span className="w-fit absolute right-1 bottom-0 z-10 rounded-full bg-white">
+                                <span className="w-fit absolute right-3 bottom-1 z-10 rounded-full bg-white">
                                     <BiSolidBadgeCheck className="text-2xl text-blue-600" />
                                 </span>
                             </div>
@@ -125,39 +123,10 @@ const DonorDashboard = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-2">
-                        <div className="p-4 rounded-2xl flex flex-col bg-gradient-to-tr from-blue-600/50 via-indigo-700/50 to-pink-600/50 lg:max-w-[12rem]">
-                            <div className="flex items-center w-full justify-between">
-                                <span className="font-semibold text-white text-wrap text-sm">
-                                    Completed Donations
-                                </span>
-                                <span className="p-2 rounded-lg bg-white/30 backdrop-blur-2xl flex items-center justify-center">
-                                    <LuClock4 className="text-black text-lg" />
-                                </span>
-                            </div>
-                            <div className="flex flex-col justify-start items-start gap-2 pt-[3rem]">
-                                <span className="text-5xl font-medium text-black">3+</span>
-                                <span className="text-xs font-medium text-black">
-                                    This month
-                                </span>
-                            </div>
-                        </div>
-                        <div className="p-4 rounded-2xl flex flex-col bg-gradient-to-tr from-blue-600/50 via-indigo-700/50 to-pink-600/50 lg:max-w-[12rem]">
-                            <div className="flex items-center w-full justify-between">
-                                <span className="font-semibold text-white text-wrap text-sm">
-                                    Completed Donations
-                                </span>
-                                <span className="p-2 rounded-lg bg-white/30 backdrop-blur-2xl flex items-center justify-center">
-                                    <LuClock4 className="text-black text-lg" />
-                                </span>
-                            </div>
-                            <div className="flex flex-col justify-start items-start gap-2 pt-[3rem]">
-                                <span className="text-5xl font-medium text-black">3+</span>
-                                <span className="text-xs font-medium text-black">
-                                    This month
-                                </span>
-                            </div>
-                        </div>
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-2 w-full">
+                        
+                        <DashBoardCard title="Completed Donations" figure={3} icon={<LuClock4 className="text-black text-lg" />}  subtitle="This month" />
+                        <DashBoardCard title="Earned points" figure={15} icon={<SiSololearn className="text-black text-lg" />}  subtitle="This week" />
                     </div>
                 </div>
                 {/* Chart Section */}
@@ -165,17 +134,17 @@ const DonorDashboard = () => {
                     <Bar data={chartData} options={chartOptions} />
                 </div>
             </aside>
-            <aside className="p-4 flex flex-col lg:overflow-y-scroll ">
-                <div className="flex flex-col">
-                    <span className="text-lg text-black">My donations</span>
-                    <VerticalScrollableWrapper className="h-[calc(100vh-2rem)]">
+            <aside className="relative flex flex-col lg:overflow-y-scroll">
+                <div className="flex flex-col md:sticky md:top-2">
+                    <span className="text-xl font-bold text-black py-4 shadow-md w-full shadow-black/20 px-4 text-center">My donations</span>
+                    <VerticalScrollableWrapper className="h-[calc(100vh-3rem)] px-4">
                         {DummyDonations.map((item, idx) => (
                             <DonationItem item={item} key={idx} />
                         ))}
                     </VerticalScrollableWrapper>
                 </div>
             </aside>
-        </div>
+        </NoScrollbarConatiner>
     );
 };
 

@@ -8,7 +8,7 @@ interface GenericImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
 }
 
 const GenericImage: React.FC<GenericImageProps> = ({
-  src = "",
+  src = MissingItemImage,// We pass the image placeholder by default
   fallbackSrc = MissingItemImage,
   hasShimmerEffect = true,
   alt = "",

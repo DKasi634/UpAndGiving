@@ -2,5 +2,12 @@
 
 *, *::before, *::after{
     font-family: "Lato", sans-serif;
-    /* transition: all 300ms ease; */
+    text-decoration: none;
+    outline: none;
+    transition: all 300ms ease;
 }
+
+textarea{
+    resize: none;
+}
+
