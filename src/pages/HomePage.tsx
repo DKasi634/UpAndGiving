@@ -19,8 +19,8 @@ const HomePage = () => {
             <h2 className="font-semibold text-4xl mb-6">Don't need it anymore ? Someone else near you might</h2>
             <p className="text-lg font-normal">Share your surplus, reduce waste, and strengthen your community by helping those in need because — <span className="text-black/70 font-extrabold text-lg !underline !underline-offset-2">every little bit helps.</span></p>
             <div className="flex items-center justify-between md:justify-start w-full gap-12 pt-12">
-              <BaseButton type={buttonType.green} className="hover:!bg-white hover:!text-green-500">Find NearBy</BaseButton>
-              <BaseButton>Share Food</BaseButton>
+              <BaseButton href="/auth/signup" type={buttonType.green} className="hover:!bg-white hover:!text-green-500">Get started</BaseButton>
+              <BaseButton href="/me/donate">Share Items</BaseButton>
             </div>
           </aside>
           <aside className="right hidden lg:flex">
@@ -45,7 +45,7 @@ const HomePage = () => {
                 return (
                   <Card key={index}>
                     <div className="flex flex-col items-center justify-center">
-                      <div className="icon text-4xl text-blue-600 mb-4 text-left">{icon}</div>
+                      <div className="icon text-4xl text-indigo-600 mb-4 text-left">{icon}</div>
                       <div className="font-bold text-xl mb-2">{title}</div>
                     </div>
                     <CardContent><p className='line-clamp-3'>{description}</p></CardContent>

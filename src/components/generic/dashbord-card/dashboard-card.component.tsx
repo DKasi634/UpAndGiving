@@ -19,7 +19,7 @@ const DashBoardCard = ({ className = "", title, icon, figure, subtitle }: DashBo
                     {icon}
                 </span>
             </div>
-            <div className="flex flex-col justify-start items-start gap-2 pt-[3rem]">
+            <div className="flex flex-col justify-start items-start gap-2 pt-[3rem] w-full ">
                 <span className="text-5xl font-extrabold text-white">{figure}+</span>
                 <span className="text-xs font-bold text-white">
                     {subtitle}

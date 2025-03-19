@@ -9,6 +9,8 @@ import { ActionWithPayload } from "@/utils/reducer/reducer.utils";
 // } from "@/utils/firebase/firebase.auth";
 import { IProfile, IUser, USER_ROLE_TYPE } from "@/api/types";
 import {
+  logoutFailure,
+  logoutSuccess,
   // logoutFailure,
   // logoutSuccess,
   registerFailure,
@@ -16,6 +18,8 @@ import {
   setCurrentUser,
   signInFailure,
   signInSuccess,
+  updateProfileFailure,
+  updateProfileSuccess,
 } from "./auth.actions";
 
 import { setErrorToast, setSuccessToast } from "../toast/toast.actions";
@@ -26,12 +30,12 @@ import {
   getProfileByUserId,
   getUserByEmail,
 } from "@/utils/supabase/supabase.utils";
-import { supabaseSignInWithEmail, supabaseSignUp } from "@/utils/supabase/supabase.auth";
+import { supabaseSignInWithEmail, supabaseSignOut, supabaseSignUp } from "@/utils/supabase/supabase.auth";
 import { User } from "@supabase/supabase-js";
-import { getRandomOrTimestampedUUID } from "@/utils";
+import { getNewUUID } from "@/utils";
 
 function* registerUser({
-  payload: { firstName, lastName, email, password, phoneNumber },
+  payload: { firstName, lastName, email, password, phoneNumber, accountType },
 }: ActionWithPayload<
   AUTH_ACTION_TYPES.REGISTER_START,
   {
@@ -40,6 +44,7 @@ function* registerUser({
     email: string;
     password: string;
     phoneNumber: string;
+    accountType:USER_ROLE_TYPE
   }
 >) {
   try {
@@ -54,10 +59,10 @@ function* registerUser({
     }
 
     const userToCreate: IUser = {
-      id: getRandomOrTimestampedUUID(),
+      id: getNewUUID(),
       email,
       created_at: new Date(),
-      role: USER_ROLE_TYPE.DONOR,
+      role:accountType || USER_ROLE_TYPE.DONOR,
     };
     const createdUser: IUser | null = yield call(
       createOrUpdateUser,
@@ -66,14 +71,14 @@ function* registerUser({
     let createdProfile: IProfile | null = null;
     if (createdUser) {
       const newUserProfile: IProfile = {
-        id: getRandomOrTimestampedUUID(),
+        id: getNewUUID(),
         user_id: createdUser.id,
         name: `${firstName} ${lastName}`,
         profile_image: `https://placehold.co/200x200/207fff/FFF?text=${
           firstName.at(0)?.toUpperCase() || email.at(0)?.toUpperCase()
         }`,
         phone_number: phoneNumber,
-        verified: true,
+        verified: false,
         created_at: new Date(),
         updated_at: new Date(),
       };
@@ -111,11 +116,7 @@ function* emailSignIn({
     if (!user) {
       throw new Error("Signin failed, something went wrong !");
     }
-    // if (!user.email_confirmed_at) {
-    //   throw new Error(
-    //     "Desolé, vous devez verifier votre email avant de vous connecter "
-    //   );
-    // }
+
     const supabaseUser: IUser | null = yield call(getUserByEmail, email);
     if (!supabaseUser) {
       throw new Error("Could not find user");
@@ -155,7 +156,7 @@ function* googleSignInComplete({
       email,
       role: existingUser?.role || USER_ROLE_TYPE.DONOR,
       created_at: new Date(),
-      id: getRandomOrTimestampedUUID(),
+      id: getNewUUID(),
     };
     const supabaseUser: IUser = { ...existingUser, ...newUser };
 
@@ -166,7 +167,7 @@ function* googleSignInComplete({
     let createdProfile: IProfile | null = null;
     if (createdUser) {
       const newUserProfile: IProfile = {
-        id: getRandomOrTimestampedUUID(),
+        id: getNewUUID(),
         user_id: createdUser.id,
         name: `${firstName} ${lastName}`,
         profile_image:
@@ -230,8 +231,41 @@ function* setAuthUser({
   }
 }
 
+function* logAuthUserOut(){
+  try {
+    const loggedOut:boolean = yield call(supabaseSignOut);
+    if(loggedOut){
+      yield put(logoutSuccess())
+    }else{
+      throw new Error("Logout failed !")
+    }
+  } catch (error) {
+    yield put(logoutFailure(error))
+  }
+}
+
+function* updateProfile({payload:profile}:ActionWithPayload<AUTH_ACTION_TYPES.UPDATE_USER_START, IProfile>){
+  try {
+    const updatedProfile:IProfile|null = yield call(createOrUpdateProfile, profile.user_id, profile);
+    if(!updatedProfile){
+      throw new Error("Failed to update profile")
+    }
+    yield put(updateProfileSuccess(updatedProfile))
+  } catch (error) {
+    yield put(updateProfileFailure(error))
+  }
+}
+
 export function* watchSetCurrentUser() {
   yield takeLatest(AUTH_ACTION_TYPES.SET_CURRENT_USER, setAuthUser);
+}
+
+export function* watchLogout(){
+  yield takeLatest(AUTH_ACTION_TYPES.LOGOUT_START, logAuthUserOut)
+}
+
+export function* watchUserUpdate(){
+  yield takeLatest(AUTH_ACTION_TYPES.UPDATE_USER_START,  updateProfile)
 }
 
 export function* authSaga() {
@@ -239,7 +273,8 @@ export function* authSaga() {
     call(watchRegistration),
     call(watchEmailSignin),
     call(watchGoogleSignInCompletion),
-    // call(watchLogout),
+    call(watchLogout),
+    call(watchUserUpdate),
     call(watchSetCurrentUser)
   ]);
 }

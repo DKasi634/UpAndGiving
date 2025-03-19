@@ -8,20 +8,21 @@ import { useDispatch, useSelector } from "react-redux";
 import { clearAuthError, clearNavigateToSignIn, registerStart } from "@/store/auth/auth.actions";
 import { selectAuthError, selectAuthLoading, selectCurrentUser, selectNavigateToSignIn } from "@/store/auth/auth.selector";
 import { AuthError } from "@/utils/error.utils";
-import LoaderLayout from "@/components/generic/loader/loader-layout.component";
 import GoogleSigninButton from "@/components/generic/base-button/google-button.component";
 import { nextRouteLocation } from "@/types";
 import { parsePhoneNumber } from "react-phone-number-input";
+import AbsoluteLoaderLayout from "@/components/generic/loader/absolute-loader-layout.component";
+import { USER_ROLE_TYPE } from "@/api/types";
 // import { supabaseSignUp } from "@/utils/supabase/auth";
 
 
 export type emailToVerifyState = {
-  userEmail:string
+  userEmail: string
 }
 
 const SignUpPage: React.FC = () => {
 
-  const initialFormData = { firstName: "", lastName: "", email: "", phoneNumber: "", password: "", confirmPassword: "" }
+  const initialFormData = { firstName: "", lastName: "", email: "", phoneNumber: "", password: "", confirmPassword: "", accountType: "" }
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -36,12 +37,12 @@ const SignUpPage: React.FC = () => {
   const [errors, setErrors] = useState(initialFormData);
 
   const location = useLocation();
-  const nextLocation:nextRouteLocation = location.state;
+  const nextLocation: nextRouteLocation = location.state;
 
 
 
   useEffect(() => {
-    if (currentUser.user && currentUser.profile) {
+    if (currentUser && currentUser.user && currentUser.profile) {
       navigate("/me/dashboard")
     }
   }, [currentUser])
@@ -50,7 +51,7 @@ const SignUpPage: React.FC = () => {
     if (navigateToSignin) {
       setFormData(initialFormData);
       const timer = setTimeout(() => {
-        navigate("/auth/signin", {state: { userEmail:formData.email } as emailToVerifyState });
+        navigate("/auth/signin", { state: { userEmail: formData.email } as emailToVerifyState });
         dispatch(clearNavigateToSignIn())
       }, 4000);
       return () => clearTimeout(timer)
@@ -63,8 +64,8 @@ const SignUpPage: React.FC = () => {
 
   useEffect(() => {
     if (signupError) {
-      const timer = setTimeout(() => { 
-        dispatch(clearAuthError()) 
+      const timer = setTimeout(() => {
+        dispatch(clearAuthError())
       }, 5000);
       return () => clearTimeout(timer);
     }
@@ -87,10 +88,6 @@ const SignUpPage: React.FC = () => {
         }
         break;
       case "phoneNumber":
-        // if (!value.trim()) {
-        //   error = "Le numéro de téléphone est obligatoire."; // Phone number is required.
-        //   break;
-        // }
         try {
           if (!parsePhoneNumber(value)?.isValid()) {
             error = "Numero invalide";
@@ -112,24 +109,18 @@ const SignUpPage: React.FC = () => {
           error = "Les mots de passe ne correspondent pas."; // Passwords do not match.
         }
         break;
+      case "accountType":
+        if(!value.trim()){ error = "Please choose an account type." }; break
       default:
         break;
     }
     return error;
   };
 
-  // const handleCustomFieldChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   const { name, value } = e.target;
-  //   const updatedFormData = { ...formData, [name]: value };
-  //   setFormData(updatedFormData);
-  //   const error = validateField(name as keyof typeof formData, value);
-  //   setErrors({ ...errors, [name]: error });
-  // };
-
-  const handleNavigateToSignin = (e:React.MouseEvent<HTMLAnchorElement>) =>{
-      e.preventDefault();
-      navigate("/auth/signin", { state:nextLocation })
-    }
+  const handleNavigateToSignin = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    navigate("/auth/signin", { state: nextLocation })
+  }
 
   const handleCustomFieldChange = (field: keyof typeof formData, value: string) => {
     setFormData({ ...formData, [field]: value });
@@ -150,13 +141,13 @@ const SignUpPage: React.FC = () => {
     setErrors(formErrors);
 
     if (Object.values(formErrors).every((err) => !err)) {
-      dispatch(registerStart(formData.firstName, formData.lastName, formData.email, formData.password, formData.phoneNumber))
+      dispatch(registerStart(formData.firstName, formData.lastName, formData.email, formData.password, formData.phoneNumber, formData.accountType as USER_ROLE_TYPE))
     }
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 py-16 px-4">
-      <div className="w-full max-w-md p-8 space-y-3 lg:rounded-xl bg-white lg:shadow-lg">
+      <div className="w-full max-w-md p-8 space-y-3 lg:rounded-xl lg:bg-white lg:shadow-lg">
         <h2 className="text-2xl font-bold text-center">S'inscrire</h2> {/* Sign Up */}
         <form onSubmit={handleSubmit} className="space-y-4">
           {/* First Name & Last Name Group */}
@@ -203,6 +194,24 @@ const SignUpPage: React.FC = () => {
             error={errors.phoneNumber}
           />
 
+          <div>
+            <label className="block text-xs font-bold text-black/70">Account type</label>
+            <select
+              name="category_id"
+              value={formData.accountType}
+              onChange={(e) => handleCustomFieldChange("accountType", e.target.value)}
+              className={`mt-1 block w-full px-3 py-2 text-xs border border-transparent ${errors.accountType ? "border-red-500" : ""
+                } rounded-lg shadow-sm font-semibold focus:outline-none bg-black/5 text-black/70 `}
+            >
+              <option value="" disabled>Choose here...</option>
+              <option value={USER_ROLE_TYPE.DONOR}> User </option>
+              <option value={USER_ROLE_TYPE.NGO}> NGO </option>
+            </select>
+            {errors.accountType && (
+              <p className="text-red-500 text-sm">{errors.accountType}</p>
+            )}
+          </div>
+
           {/* Password */}
           <PasswordInput
             label="Mot de passe"
@@ -235,7 +244,7 @@ const SignUpPage: React.FC = () => {
           <GoogleSigninButton />
         </form>
       </div>
-      {authLoading && <LoaderLayout />}
+      {authLoading && <AbsoluteLoaderLayout />}
     </div>
   );
 };

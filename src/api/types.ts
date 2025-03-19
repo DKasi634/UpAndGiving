@@ -44,3 +44,47 @@ export interface IAdmin {
     profile_id: string; // Foreign key referencing the `id` field in the `profiles` table
     permissions: Record<string, boolean>; // Admin-specific permissions stored as key-value pairs
   }
+
+  export enum DONATION_STATUSES{
+     PENDING="PENDING",
+     ACCEPTED="ACCEPTED",
+     REJECTED="REJECTED",
+     MATCHED="MATCHED",
+     DELIVERED="DELIVERED"
+  }
+  export type IDonation = {
+    id:string,
+    donor_id:string,
+    category_id:string,
+    recipient_id?:string,
+    name:string,
+    description:string,
+    status:DONATION_STATUSES
+    condition:"NEW"|"USED",
+    images:string[],
+    created_at:Date,
+  }
+
+  export enum DONATION_REQUEST_EMERGENCY_LEVELS {
+    LOW="LOW",
+    MEDIUM="MEDIUM",
+    HIGH="HIGH"
+  }
+
+
+  export type IDonationRequest = {
+    id: string; // Unique identifier for the request
+    ngo_profile_id:string,
+    title: string; 
+    description: string; 
+    urgency_level?: DONATION_REQUEST_EMERGENCY_LEVELS; // Optional urgency level
+    created_at:Date,
+    disabled:boolean,
+    image:string
+  };
+
+export type ICategory = {
+  id:string,
+  category_name:string,
+  created_at:Date
+}

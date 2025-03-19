@@ -9,3 +9,8 @@ export const getRandomOrTimestampedUUID = ():string => {
         return `${new Date().getTime()}_${parseInt(cleanUuid.slice(0, 6), 16)}`;
     }
   };
+
+  export const getNewUUID = ():string =>{
+    const UUID = crypto.randomUUID();
+    return UUID ? UUID : uuidv4()
+  }

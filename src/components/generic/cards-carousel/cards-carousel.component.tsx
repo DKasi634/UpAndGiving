@@ -28,7 +28,7 @@ const CardsCarousel = ({className="", steps }:CardsCarouselProps) => {
                     return (
                         <CarouselCard key={index} className={`w-[24rem] md:w-[28rem] card`}>
                             <div className='flex flex-col space-y-1.5 p-6'>
-                                <div className="icon text-4xl text-blue-600 mb-4 text-left">{icon}</div>
+                                <div className="icon text-4xl text-indigo-600 mb-4 text-left">{icon}</div>
                                 <div className="font-bold text-xl mb-2">{title}</div>
                             </div>
                             <div className='p-6 pt-0'><p className='line-clamp-3'>{description}</p></div>

@@ -31,7 +31,7 @@ const BaseButton = ({ className = "", children, rounded = true,disabled, type = 
           ? 'bg-transparent border-black/80 text-black/80'
           :type === buttonType.green ? 'bg-green-500 hover:bg-green-500 text-white border-green-500'
           :type === buttonType.light ?'bg-white hover:bg-white/90 text-black border-white'
-          : 'bg-blue-600 hover:bg-blue-variant text-white border-blue-600 hover:border-blue400'
+          : 'bg-indigo-600 hover:bg-indigo-variant text-white border-indigo-600 hover:border-blue400'
       } transition duration-300`;
 
     return href ? (

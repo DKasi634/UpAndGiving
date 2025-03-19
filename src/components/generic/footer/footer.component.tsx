@@ -11,7 +11,7 @@ const Footer = () => {
             <SectionContainer className="container footer__container">
                 <div className="flex flex-col md:flex-row items-center justify-between gap-8 md:gap-4">
                     <LogoContainer>
-                        <Link className="bg-blue-600 border-white w-12 aspect-square rounded-full flex items-center justify-center" to="/">
+                        <Link className="bg-indigo-600 border-white w-12 aspect-square rounded-full flex items-center justify-center" to="/">
                             {/* <img src={Logo} alt="logo" /> */}
                             <span className="text-white/90 text-xl">Up</span>
                         </Link>

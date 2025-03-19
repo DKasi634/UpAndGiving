@@ -1,7 +1,7 @@
 import { User } from "@supabase/supabase-js";
 import { supabase } from "./supabase.config";
 // import { IUser, USER_ROLE_TYPE, IProfile } from "@/api/types";
-// import { getRandomOrTimestampedUUID } from "..";
+// import { getNewUUID } from "..";
 // import { createOrUpdateProfile, createOrUpdateUser } from "./utils";
 
 export  const supabaseSignUp = async (
@@ -25,6 +25,7 @@ export  const supabaseSignUp = async (
 
 export  const supabaseSignInWithEmail = async (email:string, password:string):Promise<User|null> => {
     // We should not rely on a returned user here, since we'll be catching them from the auth state changed listener
+    console.log("Signing in with email: ", email)
     const { data, error } = await supabase.auth.signInWithPassword({
       email,
       password,
@@ -39,14 +40,18 @@ export  const supabaseSignInWithEmail = async (email:string, password:string):Pr
     }
   };
 
-export  const supabaseSignOut = async () => {
+export  const supabaseSignOut = async ():Promise<boolean> => {
+  try {
     const { error } = await supabase.auth.signOut();
-  
     if (error) {
-      console.error("Error signing out:", error.message);
+      throw new Error(error.message);
     } else {
-      alert("Signed out successfully!");
+      return true
     }
+  } catch (error) {
+    return false
+  }
+    
   };
 
 export  const supabaseGoogleSignIn = async () => {

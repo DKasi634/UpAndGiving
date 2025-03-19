@@ -10,7 +10,7 @@ import {
   getAuthError,
   getCustomError,
 } from "@/utils/error.utils";
-import { IProfile, IUser } from "@/api/types";
+import { IProfile, IUser, USER_ROLE_TYPE } from "@/api/types";
 import { User } from "@supabase/supabase-js";
 
 type RegisterStart = ActionWithPayload<
@@ -21,6 +21,7 @@ type RegisterStart = ActionWithPayload<
     email: string;
     password: string;
     phoneNumber: string;
+    accountType:USER_ROLE_TYPE
   }
 >;
 type RegisterFailure = ActionWithPayload<
@@ -54,15 +55,15 @@ type LogoutFailure = ActionWithPayload<
 >;
 type LogoutSuccess = Action<AUTH_ACTION_TYPES.LOGOUT_SUCCESS>;
 
-type UpdateUserStart = ActionWithPayload<
+type UpdateProfileStart = ActionWithPayload<
   AUTH_ACTION_TYPES.UPDATE_USER_START,
   IProfile
 >;
-type UpdateUserFailure = ActionWithPayload<
+type UpdateProfileFailure = ActionWithPayload<
   AUTH_ACTION_TYPES.UPDATE_USER_FAILURE,
   AuthError
 >;
-type UpdateUserSuccess = ActionWithPayload<
+type UpdateProfileSuccess = ActionWithPayload<
   AUTH_ACTION_TYPES.UPDATE_USER_SUCCESS,
   IProfile
 >;
@@ -89,9 +90,9 @@ export type AuthAction =
   | LogoutStart
   | LogoutFailure
   | LogoutSuccess
-  | UpdateUserFailure
-  | UpdateUserStart
-  | UpdateUserSuccess
+  | UpdateProfileFailure
+  | UpdateProfileStart
+  | UpdateProfileSuccess
   | GetCurrentUser
   | SetCurrentUser
   | ClearAuthError
@@ -101,7 +102,8 @@ export const registerStart = (
   lastName: string,
   email: string,
   password: string,
-  phoneNumber: string
+  phoneNumber: string,
+  accountType:USER_ROLE_TYPE
 ): RegisterStart =>
   createAction(AUTH_ACTION_TYPES.REGISTER_START, {
     firstName,
@@ -109,6 +111,7 @@ export const registerStart = (
     email,
     password,
     phoneNumber,
+    accountType
   });
 
 export const registerSuccess = (createdUser: IUser): RegisterSuccess =>
@@ -147,13 +150,13 @@ export const logoutFailure = (error: unknown): LogoutFailure =>
 export const logoutSuccess = (): LogoutSuccess =>
   createAction(AUTH_ACTION_TYPES.LOGOUT_SUCCESS);
 
-export const updateUserStart = (profileToUpdate: IProfile): UpdateUserStart =>
+export const  updateProfileStart = (profileToUpdate: IProfile): UpdateProfileStart =>
   createAction(AUTH_ACTION_TYPES.UPDATE_USER_START, profileToUpdate);
 
-export const updateUserFailure = (error: unknown): UpdateUserFailure =>
+export const  updateProfileFailure = (error: unknown): UpdateProfileFailure =>
   createAction(AUTH_ACTION_TYPES.UPDATE_USER_FAILURE, getAuthError(error));
 
-export const updateUserSuccess = (profileToUpdate: IProfile): UpdateUserSuccess =>
+export const  updateProfileSuccess = (profileToUpdate: IProfile): UpdateProfileSuccess =>
   createAction(AUTH_ACTION_TYPES.UPDATE_USER_SUCCESS, profileToUpdate);
 
 export const getCurrentUser = (): GetCurrentUser =>

@@ -32,7 +32,7 @@ export const VerticalScrollableWrapper = styled.div`
         background: #e1e1e1;
     } 
 `
-export const NoScrollbarConatiner = styled.div`
+export const NoScrollbarContainer = styled.div`
     scrollbar-width: none !important;
     
 `

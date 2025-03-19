@@ -14,7 +14,7 @@ type ImagesUploadFormGroupProps = {
 };
 
 const ImageUploadFormGroup = forwardRef<
-  { uploadImages: () => Promise<string[]> },
+{ uploadImages: () => Promise<string[]>, getAvailableRemoteImages: ()=> string[], hasSelectedImages:() => boolean },
   ImagesUploadFormGroupProps
 >(
   ({ imagesLimit, label, folderPath, initialImages = [] }, uploadToStorageRef) => {
@@ -134,10 +134,14 @@ const ImageUploadFormGroup = forwardRef<
     };
 
     const hasSelectedImages = (): boolean => !!selectedImages.length;
+    const getRemoteSelectedImages = () =>{
+      return remoteImages
+    }
 
     useImperativeHandle(uploadToStorageRef, () => ({
       uploadImages: handleUploadToStorage,
       hasSelectedImages,
+      getAvailableRemoteImages:getRemoteSelectedImages
     }));
 
     const handleRemoveImage = (urlToRemove: string) => {

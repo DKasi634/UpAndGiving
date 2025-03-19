@@ -16,7 +16,7 @@ export const getAuthError = (error: unknown): AuthError => {
         return {message: error.message };
     }
     else {
-        return { message: "Une erreur inattendue s'est produite." };
+        return { message: "Something went wrong !" };
     }
 };
 

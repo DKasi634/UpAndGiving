@@ -5,18 +5,16 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { emailSignInStart } from "@/store/auth/auth.actions";
 import { selectAuthLoading, selectCurrentUser } from "@/store/auth/auth.selector";
-import LoaderLayout from "@/components/generic/loader/loader-layout.component";
 import GoogleSigninButton from "@/components/generic/base-button/google-button.component";
 import GenericInput from "@/components/generic/generic-input/generic-input.component";
 import { nextRouteLocation } from "@/types";
-// import { supabaseSignInWithEmail } from "@/utils/supabase/supabase.auth";
+import AbsoluteLoaderLayout from "@/components/generic/loader/absolute-loader-layout.component";
 
-const SignInPage: React.FC = () => {
+const SignInPage = () => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState<{ email?: string; password?: string }>({});
-  // const [authLoading, setAuthLoading] = useState(false);
   const currentUser = useSelector(selectCurrentUser);
   const authLoading = useSelector(selectAuthLoading)
   const dispatch = useDispatch();
@@ -24,12 +22,11 @@ const SignInPage: React.FC = () => {
   const location = useLocation();
   const nextLocation:nextRouteLocation = location.state;
 
-
   useEffect(()=>{
-    if(currentUser.user && currentUser.profile){
-      navigate( nextLocation && nextLocation.fromRoute ? nextLocation.fromRoute :  "/me/dashboard")
+    if(currentUser && currentUser.user && currentUser.profile){
+      navigate( (nextLocation && nextLocation.fromRoute) ? nextLocation.fromRoute :  "/me/dashboard")
     }
-  }, [currentUser])
+  }, [])
 
   const handleNavigateToSignup = (e:React.MouseEvent<HTMLAnchorElement>) =>{
     e.preventDefault();
@@ -81,7 +78,7 @@ const SignInPage: React.FC = () => {
   
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
+    <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4 relative">
       <div className="w-full max-w-md p-8 space-y-3 lg:rounded-xl bg-white lg:shadow-lg">
         <h2 className="text-2xl font-bold text-center">Se connecter</h2> {/* Sign In */}
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -121,7 +118,7 @@ const SignInPage: React.FC = () => {
         </form>
       </div>
 
-      {authLoading && <LoaderLayout/> }
+      {authLoading && <AbsoluteLoaderLayout/> }
     </div>
   );
 };
