@@ -10,6 +10,9 @@ export  const supabaseSignUp = async (
     console.log(`Starting signup with email : ${email} and password : ${password}`)
     try {
       const { data, error } = await supabase.auth.signUp({email, password,
+        options:{
+          emailRedirectTo:`${window.location.origin}/auth/callback`
+        }
       });
   
       if (error) {
@@ -57,6 +60,9 @@ export  const supabaseSignOut = async ():Promise<boolean> => {
 export  const supabaseGoogleSignIn = async () => {
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider: "google",
+      options:{
+        redirectTo:`${window.location.origin}/callback`
+      }
     });
   
     if (error) {

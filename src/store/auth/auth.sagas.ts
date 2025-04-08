@@ -1,15 +1,11 @@
 import { takeLatest, all, call, put } from "redux-saga/effects";
 import { AUTH_ACTION_TYPES } from "./auth.types";
 import { ActionWithPayload } from "@/utils/reducer/reducer.utils";
-// import {
-//   createAuthUser,
-//   logout,
-//   sendCustomVerificationEmail,
-//   siginWithEmail
-// } from "@/utils/firebase/firebase.auth";
+
 import { IProfile, IUser, USER_ROLE_TYPE } from "@/api/types";
 import {
   logoutFailure,
+  logoutStart,
   logoutSuccess,
   // logoutFailure,
   // logoutSuccess,
@@ -90,9 +86,10 @@ function* registerUser({
       if(!createdUser || !createdProfile){ throw new Error("Failed to register user ") }
       yield put(registerSuccess(createdUser));
     }
+    yield put(logoutStart());
     yield put(
       setSuccessToast(
-        "Inscription réussie ! Veuillez vérifier votre email pour activer votre compte."
+        "Signup succesfull ! Please check your mail box (or spams) to verify your account"
       )
     );
   } catch (error) {

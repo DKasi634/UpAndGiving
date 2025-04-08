@@ -52,9 +52,9 @@ const SignInPage = () => {
 
     let error = "";
     if (!value.trim()) {
-      error = "Le mot de passe est obligatoire."; // Password is required.
+      error = "Password is required"; 
     } else if (value.length < 6) {
-      error = "Le mot de passe doit contenir au moins 6 caractères."; // Password must be at least 6 characters.
+      error = "Password must be at least 6 characters"; // 
     }
     setErrors((prevErrors) => ({ ...prevErrors, password: error }));
   };
@@ -64,8 +64,8 @@ const SignInPage = () => {
     e.preventDefault();
 
     // Validate all fields
-    const emailError = email.trim() ? (!/\S+@\S+\.\S+/.test(email) ? "Format d'email invalide." : "") : "L'email est obligatoire.";
-    const passwordError = password.trim() ? (password.length < 6 ? "Le mot de passe doit contenir au moins 6 caractères." : "") : "Le mot de passe est obligatoire.";
+    const emailError = email.trim() ? (!/\S+@\S+\.\S+/.test(email) ? "Invalid email format" : "") : "Email required";
+    const passwordError = password.trim() ? (password.length < 6 ? "Password must be at least 6 characters" : "") : "Password required";
 
     if (emailError || passwordError) {
       setErrors({ email: emailError, password: passwordError });
@@ -80,7 +80,7 @@ const SignInPage = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4 relative">
       <div className="w-full max-w-md p-8 space-y-3 lg:rounded-xl bg-white lg:shadow-lg">
-        <h2 className="text-2xl font-bold text-center">Se connecter</h2> {/* Sign In */}
+        <h2 className="text-2xl font-bold text-center">Sign In  </h2> 
         <form onSubmit={handleSubmit} className="space-y-4">
           {/* Email Input */}
 
@@ -91,26 +91,25 @@ const SignInPage = () => {
             onChange={handleEmailChange}
             error={errors.email}
             name="email"
-            placeholder="Entrez votre email"
+            placeholder=""
           />
 
           {/* Password Input (Replaced with PasswordInput component) */}
           <PasswordInput
-            label="Mot de passe" 
+            label="Password" 
             value={password}
             onChange={handlePasswordChange}
             error={errors.password}
           />
 
-          <p className="w-full text-xs !mt-8">Vous n'avez pas encore de compte ? <Link to={"/auth/signup"} onMouseDown={handleNavigateToSignup} className="text-green font-bold px-2 underline-offset-2 underline">S'inscrire</Link> </p>
+          <p className="w-full text-xs !mt-8">Don't have an account ? <Link to={"/auth/signup"} onMouseDown={handleNavigateToSignup} className="text-green font-bold px-2 underline-offset-2 underline">Signup</Link> </p>
 
           {/* Sign In Button */}
           <BaseButton
             type={buttonType.blue} submitType="submit" rounded={false}
             className="w-full !px-4 !py-2 !text-sm font-medium"
           >
-            Se connecter {/* Sign In */
-            }
+            Sign In  
           </BaseButton>
 
           {/* Continue with Google Button */}

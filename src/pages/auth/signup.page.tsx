@@ -148,30 +148,30 @@ const SignUpPage: React.FC = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 py-16 px-4">
       <div className="w-full max-w-md p-8 space-y-3 lg:rounded-xl lg:bg-white lg:shadow-lg">
-        <h2 className="text-2xl font-bold text-center">S'inscrire</h2> {/* Sign Up */}
+        <h2 className="text-2xl font-bold text-center">Sign up</h2> {/* Sign Up */}
         <form onSubmit={handleSubmit} className="space-y-4">
           {/* First Name & Last Name Group */}
           <div className="flex flex-col md:flex-row gap-4 md:space-x-4">
             <div className="md:w-1/2 md:pr-2">
               <GenericInput
-                label="Prénom"
+                label="First Name"
                 type="text"
                 value={formData.firstName}
                 onChange={(e) => handleCustomFieldChange("firstName", e.target.value)}
                 error={errors.firstName}
                 name="firstName"
-                placeholder="Entrez votre prénom"
+                placeholder=""
               />
             </div>
             <div className="md:w-1/2 md:pl-2">
               <GenericInput
-                label="Nom"
+                label="Name"
                 type="text"
                 value={formData.lastName}
                 onChange={(e) => handleCustomFieldChange("lastName", e.target.value)}
                 error={errors.lastName}
                 name="lastName"
-                placeholder="Entrez votre nom"
+                placeholder=""
               />
             </div>
           </div>
@@ -184,7 +184,7 @@ const SignUpPage: React.FC = () => {
             onChange={(e) => handleCustomFieldChange("email", e.target.value)}
             error={errors.email}
             name="email"
-            placeholder="Entrez votre email"
+            placeholder="example@gmail.com"
           />
 
           {/* Phone Number */}
@@ -214,7 +214,7 @@ const SignUpPage: React.FC = () => {
 
           {/* Password */}
           <PasswordInput
-            label="Mot de passe"
+            label="Password"
             id="password"
             value={formData.password}
             onChange={(value) => handleCustomFieldChange("password", value)}
@@ -223,22 +223,21 @@ const SignUpPage: React.FC = () => {
 
           {/* Confirm Password */}
           <PasswordInput
-            label="Confirmez le mot de passe"
+            label="Confirm password"
             id="confirm_password"
             value={formData.confirmPassword}
             onChange={(value) => handleCustomFieldChange("confirmPassword", value)}
             error={errors.confirmPassword}
           />
 
-          <p className="w-full text-xs !mt-8">Vous avez déjà un compte ? <Link to={"/signin"} onMouseDown={handleNavigateToSignin} className="text-green font-bold px-2 underline-offset-2 underline">Se connecter</Link> </p>
+          <p className="w-full text-xs !mt-8">Already have an account ? <Link to={"/auth/signin"} onMouseDown={handleNavigateToSignin} className="text-green font-bold px-2 underline-offset-2 underline">Sign In</Link> </p>
 
           {/* Submit Button */}
           <BaseButton
             type={buttonType.blue} submitType="submit" rounded={false}
             className="w-full !px-4 !py-2 !mt-4 text-sm font-medium"
           >
-            S'inscrire {/* Sign Up */
-            }
+            Sign Up 
           </BaseButton>
 
           <GoogleSigninButton />

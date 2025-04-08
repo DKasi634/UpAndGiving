@@ -15,7 +15,7 @@ const GoogleSigninButton = () => {
             className="flex items-center justify-center !w-full !px-4 py-2 gap-2 text-sm font-medium "
         >
             <FcGoogle className="h-5 w-5" />
-            <span>Continuer avec Google</span>
+            <span>Continue with Google</span>
         </BaseButton>
     )
 }

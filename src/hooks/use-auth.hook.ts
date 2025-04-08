@@ -1,6 +1,5 @@
 import { useEffect} from "react";
 import { supabase } from "@/utils/supabase/supabase.config";
-// import { User } from "@supabase/supabase-js";
 import { useDispatch, useSelector } from "react-redux";
 import { setCurrentUser } from "@/store/auth/auth.actions";
 import { selectCurrentUser } from "@/store/auth/auth.selector";
