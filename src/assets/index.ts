@@ -9,7 +9,7 @@ import {
     FiEyeOff,
     FiLogIn,
     FiLogOut,
-    FiRefreshCw
+    FiRefreshCw,FiEdit
   } from "react-icons/fi";
 import { AiOutlineLineChart } from "react-icons/ai";
 import { FaHandHoldingHeart, FaAward } from "react-icons/fa";
@@ -59,6 +59,7 @@ import { VscGitPullRequestNewChanges } from "react-icons/vsc";
     FiEyeOff,
     FiLogIn,
     FiLogOut,
+    FiEdit,
     IoLocationOutline,
     IoCloudUploadOutline,
     IoClose,

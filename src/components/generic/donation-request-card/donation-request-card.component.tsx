@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { FiEye } from "react-icons/fi";
 import GenericImage from "../generic-image/generic-image.component";
 import BaseButton, { buttonType } from "../base-button/base-button.component";
-import {IDonationRequest, IProfile, USER_ROLE_TYPE } from "@/api/types";
+import { IDonationRequest, IProfile, USER_ROLE_TYPE } from "@/api/types";
 import { disableDonationRequest, enableDonationRequest, getProfileByProfileId } from "@/utils/supabase/supabase.utils";
 import AbsoluteLoaderLayout from "../loader/absolute-loader-layout.component";
 import { useDispatch, useSelector } from "react-redux";
@@ -99,6 +99,9 @@ const DonationRequestCard: React.FC<DonationRequestCardProps> = ({
         </div>
         <div className="flex items-center justify-center w-full pt-4 gap-3">
           <BaseButton href={`/me/single-request/${request.id}`} className="!px-4 !py-[0.4rem] !text-xs"> <FiEye className="mr-1" /> View</BaseButton>
+          {(currentUser && currentUserRole === USER_ROLE_TYPE.NGO && thisDonationRequest.ngo_profile_id === currentUser.profile?.id) &&
+            <BaseButton href={`/me/edit-request-donation/${request.id}`} className="!px-4 !py-[0.4rem] !text-xs"> <FiEye className="mr-1" /> Edit</BaseButton>
+          }
           {
             (currentUser && currentUserRole === USER_ROLE_TYPE.ADMIN && !thisDonationRequest.disabled) &&
             <BaseButton clickHandler={() => handleApproveDonationRequest(thisDonationRequest.id)} className="!px-4 !py-[0.4rem] !text-xs">Enable</BaseButton>

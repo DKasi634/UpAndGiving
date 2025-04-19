@@ -5,15 +5,26 @@ import BaseButton from "@/components/generic/base-button/base-button.component";
 import { useDispatch, useSelector } from "react-redux";
 import { selectCurrentUser } from "@/store/auth/auth.selector";
 import { DONATION_REQUEST_EMERGENCY_LEVELS, IDonationRequest, USER_ROLE_TYPE } from "@/api/types";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { getNewUUID } from "@/utils";
 import ImageUploadFormGroup from "@/components/generic/images-upload-input/image-upload-input.component";
-import { createOrUpdateDonationRequest } from "@/utils/supabase/supabase.utils";
+import { createOrUpdateDonationRequest, getDonationRequestById } from "@/utils/supabase/supabase.utils";
 import { setErrorToast } from "@/store/toast/toast.actions";
 import { getCustomError } from "@/utils/error.utils";
 import AbsoluteLoaderLayout from "@/components/generic/loader/absolute-loader-layout.component";
 
-const RequestDonation = () => {
+type RequestDonationProps = {
+  mode:"CREATE"|"EDIT"
+}
+
+const RequestDonation = ({mode="CREATE"}:RequestDonationProps) => {
+
+  let requestId: string | null = null;
+      if (mode === "EDIT") {
+          const donationParams = useParams<{ requestId: string }>() as { requestId: string };
+          requestId = donationParams.requestId
+      }
+
   const [thisDonationRequest, setThisDonationRequest] = useState<IDonationRequest>({
     id: getNewUUID(),
     ngo_profile_id: "",
@@ -34,6 +45,7 @@ const RequestDonation = () => {
 
   const imagesUploadRef = useRef<{ uploadImages: () => Promise<string[]>, hasSelectedImages: () => boolean, getAvailableRemoteImages: () => string[] }>(null);
 
+  const [donationInitialImage, setDonationInitialImage]  = useState("")
 
   useEffect(() => {
     if(currentUser && currentUser.profile){
@@ -43,6 +55,12 @@ const RequestDonation = () => {
       navigate("/not-found", { replace: true })
     }
   }, [currentUser])
+
+  useEffect(()=>{
+    if(requestId){
+      fetchDonationRequest(requestId)
+    }
+  }, [requestId])
 
   useEffect(() => {
     if (canCreate && thisDonationRequest) {
@@ -55,6 +73,18 @@ const RequestDonation = () => {
   const showErrorToast = (message: string) => {
     dispatch(setErrorToast(message))
   }
+
+  const fetchDonationRequest = async (requestId: string) => {
+          try {
+              const thisDonationRequest = await getDonationRequestById(requestId);
+              if (thisDonationRequest) { 
+                  setThisDonationRequest(thisDonationRequest);
+                  setDonationInitialImage(thisDonationRequest.image)
+                }
+          } catch (error) {
+  
+          }
+      }
 
   const createRequest = async (donationRequest: IDonationRequest) => {
     try {
@@ -87,27 +117,25 @@ const RequestDonation = () => {
     if (!thisDonationRequest.urgency_level || !thisDonationRequest.urgency_level.trim()) {
       localErrors.urgency_level = "Urgency level is required"
     }
-    
       setErrors(localErrors);
-    console.log("\nErrors length : ", Object.keys(localErrors).length)
     return !Object.values(localErrors).some(errorValue => errorValue.trim() !== ""); // Return true if no errors
   };
 
   // Handle form submission
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    console.log("Starting submit with validate ")
+    // console.log("Starting submit with validate ")
     e.preventDefault();
     if (!validateForm() || loading) { return };
-    console.log("First check passed !")
+    // console.log("First check passed !")
     setLoading(true);
 
-    if (imagesUploadRef.current && !thisDonationRequest.image) {
+    if (imagesUploadRef.current ) {
       if (imagesUploadRef.current.hasSelectedImages()) {
         const uploadedImages = await imagesUploadRef.current.uploadImages();
         if (uploadedImages.length) {
           setThisDonationRequest(prev => ({ ...prev, image: uploadedImages[0] }))
         }
-      } else {
+      } else if(!thisDonationRequest.image) {
         showErrorToast("You need to choose an image")
       }
     }
@@ -117,12 +145,11 @@ const RequestDonation = () => {
 
   return (
     <div className="min-h-screen bg-gray-100/20 flex flex-col items-center justify-start py-8 relative">
-      <h2 className="text-2xl font-bold text-center my-8">Create a Donation Request</h2>
+      <h2 className="text-2xl font-bold text-center my-8">{mode === "CREATE"? "Create":"Edit"} a Donation Request</h2>
       <form
         onSubmit={handleSubmit}
         className="bg-white p-8 rounded-lg space-y-6  lg:shadow-lg w-full max-w-lg mx-auto"
       >
-
 
         {/* Request Title */}
         <GenericInput
@@ -162,7 +189,7 @@ const RequestDonation = () => {
             <option value={DONATION_REQUEST_EMERGENCY_LEVELS.HIGH}>High</option>
           </select>
         </div>
-        <ImageUploadFormGroup label='Choose image' imagesLimit={1} folderPath='DonationRequests'
+        <ImageUploadFormGroup label='Choose image' initialImages={[donationInitialImage].filter(url => url.trim())} imagesLimit={1} folderPath='DonationRequests'
           ref={imagesUploadRef} />
         {/* Submit Button */}
         <BaseButton

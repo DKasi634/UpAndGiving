@@ -26,7 +26,6 @@ const SingleDonationPage = () => {
 
     useEffect(() => {
         if (donationId && donationId.trim()) {
-            console.log("Got the donation with donation id : ", donationId)
             fetchThisDonationRequest(donationId)
         }
     }, [donationId]);
@@ -42,7 +41,6 @@ const SingleDonationPage = () => {
         setIsLoading(true);
         const donation = await getDonationById(donationId);
         if (donation) {
-            console.log("Got donation at ",new Date().toISOString(), "\n  as : ", donation)
             setThisDonation(donation);
             if (donation.recipient_id) {
                 const ngoProfile = await getProfileByProfileId(donation.recipient_id);

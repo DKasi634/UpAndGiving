@@ -62,7 +62,7 @@ export const uploadToSupabaseStorage = async (file:File, folderPath:string):Prom
         if(error){ return null }
         return data as IProfile
     } catch (error) {
-        console.log("Something went wrong when getting the profile !")
+      //console.log("Something went wrong when getting the profile !")
         return null
     }
 
@@ -83,7 +83,7 @@ export const uploadToSupabaseStorage = async (file:File, folderPath:string):Prom
         if(error){ return null }
         return data as IProfile
     } catch (error) {
-        console.log("Something went wrong when getting the profile !")
+      //console.log("Something went wrong when getting the profile !")
         return null
     }
 
@@ -170,7 +170,7 @@ export const createOrUpdateUser = async (
       if(error){ throw new Error(error.message) }
       return data as IDonation
     } catch (error) {
-      console.log("Error getting donation with id : ", donationId)
+    //console.log("Error getting donation with id : ", donationId)
       return null
     }
   }
@@ -192,7 +192,7 @@ export const createOrUpdateUser = async (
       if(error){ throw new Error(error.message) }
       return data as IDonation[]
     } catch (error) {
-      console.log("Error getting donation with donor id : ", donorId)
+    //console.log("Error getting donation with donor id : ", donorId)
       return null
     }
   }
@@ -203,7 +203,7 @@ export const createOrUpdateUser = async (
       if(error){ throw new Error(error.message) }
       return data as IDonation[]
     } catch (error) {
-      console.log("Error getting donation with recepient id : ", recepientId, "\nas :", error)
+    //console.log("Error getting donation with recepient id : ", recepientId, "\nas :", error)
       return null
     }
   }
@@ -315,7 +315,7 @@ export type MonthDonation = {
       if(error){ throw new Error(error.message) }
       return data as IDonation
     } catch (error) {
-      console.log("Error creating or updating donation",donation,  "\n as : ", error);
+    //console.log("Error creating or updating donation",donation,  "\n as : ", error);
       return null
     }
   }
@@ -326,7 +326,7 @@ export type MonthDonation = {
       if(error){ throw new Error(error.message) }
       return data as IDonationRequest
     } catch (error) {
-      console.log("Error creating or updating donation request",donationRequest,  "\n as : ", error);
+    //console.log("Error creating or updating donation request",donationRequest,  "\n as : ", error);
       return null
     }
   }
@@ -337,7 +337,7 @@ export type MonthDonation = {
       if(error){ throw new Error(error.message) }
       return data as IDonationRequest
     } catch (error) {
-      console.log("Error getting donation request with id : ", request_id)
+    //console.log("Error getting donation request with id : ", request_id)
       return null
     }
   }
@@ -348,7 +348,7 @@ export type MonthDonation = {
       if(error){ throw new Error(error.message) }
       return data as IDonationRequest[]
     } catch (error) {
-      console.log("Error getting donation request with as : ", error)
+    //console.log("Error getting donation request with as : ", error)
       return null
     }
   }
@@ -360,7 +360,7 @@ export type MonthDonation = {
       if(error){ throw new Error(error.message) }
       return data as IDonationRequest[]
     } catch (error) {
-      console.log("Error getting donation with NGO profile id : ", ngo_profile_id)
+    //console.log("Error getting donation with NGO profile id : ", ngo_profile_id)
       return null
     }
   }

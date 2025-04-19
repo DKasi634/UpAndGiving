@@ -74,7 +74,7 @@ export const processSteps:LandingProcessStep[] = [
   },
   {
     title: "Secure your donation",
-    description: "We can view your post and reach out to arrange a pick-up. We'll then connect you directly to different NGOs and communities in need.",
+    description: "We can view your post and reach out to arrange a pick-up.If your item passes our checks,  we'll then dispatch it directly to different NGOs and communities in need.",
     icon: <FaUsers />,
   },
   {

@@ -38,7 +38,8 @@ function App() {
           <Route path='signup' element={<SignUpPage />} />
         </Route>
         <Route path='me' element={<AuthProtectedRoute><AccountNavigation /></AuthProtectedRoute>}>
-          <Route path='request-donation' element={<RequestDonation />} />
+          <Route path='request-donation' element={<RequestDonation mode='CREATE' />} />
+          <Route path='edit-request-donation/:requestId' element={<RequestDonation mode='EDIT' />} />
           <Route path='dashboard' element={<DonorDashboard />} />
           <Route path='donate' element={<Donate mode="CREATE" />} />
           <Route path='profile' element={<ProfilePage/>} />

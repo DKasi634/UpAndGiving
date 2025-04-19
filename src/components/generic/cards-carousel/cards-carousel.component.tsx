@@ -31,7 +31,7 @@ const CardsCarousel = ({className="", steps }:CardsCarouselProps) => {
                                 <div className="icon text-4xl text-indigo-600 mb-4 text-left">{icon}</div>
                                 <div className="font-bold text-xl mb-2">{title}</div>
                             </div>
-                            <div className='p-6 pt-0'><p className='line-clamp-3'>{description}</p></div>
+                            <div className='p-6 pt-0'><p className='line-clamp-3 text-sm'>{description}</p></div>
                         </CarouselCard>
                     )
                 })

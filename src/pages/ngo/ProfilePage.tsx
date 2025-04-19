@@ -10,8 +10,9 @@ import NotFoundPage from "../errors/not-found.page";
 import BaseButton, { buttonType } from "@/components/generic/base-button/base-button.component";
 import GenericImage from "@/components/generic/generic-image/generic-image.component";
 import ImageUploadFormGroup from "@/components/generic/images-upload-input/image-upload-input.component";
-import { updateProfileStart } from "@/store/auth/auth.actions";
+import { logoutStart, updateProfileStart } from "@/store/auth/auth.actions";
 import AbsoluteLoaderLayout from "@/components/generic/loader/absolute-loader-layout.component";
+import { PiSignOutBold } from "react-icons/pi";
 
 const ProfilePage = () => {
   const currentUser = useSelector(selectCurrentUser);
@@ -22,10 +23,10 @@ const ProfilePage = () => {
   const [loading, setLoading] = useState(false);
   const [canSave, setCanSave] = useState(false);
   const navigate = useNavigate();
-  const dispatch  = useDispatch();
+  const dispatch = useDispatch();
 
   const imagesUploadRef = useRef<{ uploadImages: () => Promise<string[]>, hasSelectedImages: () => boolean, getAvailableRemoteImages: () => string[] }>(null);
-  
+
 
   useEffect(() => {
     if (currentUser.user && currentUser.profile) {
@@ -35,8 +36,8 @@ const ProfilePage = () => {
     }
   }, [currentUser])
 
-  useEffect(()=>{
-    if(canSave && profile){
+  useEffect(() => {
+    if (canSave && profile) {
       dispatch(updateProfileStart(profile));
       setLoading(false);
       setCanSave(false);
@@ -53,6 +54,10 @@ const ProfilePage = () => {
     setProfile((prev) => ({ ...prev, [name]: value } as IProfile));
   };
 
+  const handleSignout = () => {
+    dispatch(logoutStart())
+  }
+
 
   // Validate form fields
   const validateForm = () => {
@@ -68,12 +73,12 @@ const ProfilePage = () => {
 
   // Handle saving changes
   const handleSave = async () => {
-    if (!validateForm() || !profile) {return};
+    if (!validateForm() || !profile) { return };
     setLoading(true);
 
-    if(imagesUploadRef.current && imagesUploadRef.current.hasSelectedImages()){
+    if (imagesUploadRef.current && imagesUploadRef.current.hasSelectedImages()) {
       const uploadedImages = await imagesUploadRef.current.uploadImages();
-      if(uploadedImages.length){ setProfile(prev => ({...prev, profile_image:uploadedImages[0]} as IProfile))}
+      if (uploadedImages.length) { setProfile(prev => ({ ...prev, profile_image: uploadedImages[0] } as IProfile)) }
     }
     setCanSave(true)
   };
@@ -83,7 +88,7 @@ const ProfilePage = () => {
       {
         currentUser.profile ?
           <div className="md:bg-white p-8 md:rounded-lg md:shadow-lg w-full max-w-xl space-y-2">
-            <h2 className="text-2xl font-bold text-center"> {currentUser.user?.role === USER_ROLE_TYPE.DONOR ? "User": currentUser.user?.role === USER_ROLE_TYPE.NGO ? "NGO":"Admin"} Profile</h2>
+            <h2 className="text-2xl font-bold text-center"> {currentUser.user?.role === USER_ROLE_TYPE.DONOR ? "User" : currentUser.user?.role === USER_ROLE_TYPE.NGO ? "NGO" : "Admin"} Profile</h2>
 
             {/* Profile Image */}
             <div className="flex flex-col items-center space-y-2">
@@ -93,9 +98,9 @@ const ProfilePage = () => {
               </div>
 
               {isEditing && (
-                
+
                 <ImageUploadFormGroup label='Choose images' imagesLimit={1} folderPath='Profiles'
-                ref={imagesUploadRef} />
+                  ref={imagesUploadRef} />
               )}
             </div>
 
@@ -144,7 +149,7 @@ const ProfilePage = () => {
             )}
 
             {/* Edit/Save Buttons */}
-            <div className="flex justify-between items-center mt-12">
+            <div className="flex justify-between items-center mt-12 w-full">
               {isEditing ? (
                 <>
                   <BaseButton
@@ -162,18 +167,23 @@ const ProfilePage = () => {
                   </BaseButton>
                 </>
               ) : (
-                <BaseButton
-                  clickHandler={() => setIsEditing(true)}
-                  className="bg-indigo-600 text-white px-4 py-2 hover:bg-indigo-700 mx-auto"
-                >
-                  Edit Profile
-                </BaseButton>
+                <>
+                  <BaseButton clickHandler={handleSignout} className="!px-6 !text-xs !font-bold !py-[0.4rem] bg-indigo-600 rounded-3xl text-white">
+                    <> <span className="hidden md:inline">Logout</span> <span className=""><PiSignOutBold className="text-xl" /></span> </>
+                  </BaseButton>
+                  <BaseButton
+                    clickHandler={() => setIsEditing(true)}
+                    className="bg-indigo-600 text-white px-4 py-2 hover:bg-indigo-700"
+                  >
+                    Edit Profile
+                  </BaseButton>
+                </>
               )}
             </div>
           </div> :
           <NotFoundPage />
       }
-      { (loading || currentUserLoading) && <AbsoluteLoaderLayout/>  }
+      {(loading || currentUserLoading) && <AbsoluteLoaderLayout />}
     </div>
   );
 };

@@ -9,6 +9,7 @@ import { useParams } from "react-router-dom";
 import { USER_ROLE_TYPE } from "@/api/types";
 import BaseButton, { buttonType } from "@/components/generic/base-button/base-button.component";
 import { setErrorToast } from "@/store/toast/toast.actions";
+import { FiEye } from "@/assets";
 
 
 const SingleDonationRequest = () => {
@@ -28,13 +29,13 @@ const SingleDonationRequest = () => {
 
     useEffect(() => {
         if (currentUser && currentUser.user) {
-          setCurrentUserRole(currentUser.user.role)
+            setCurrentUserRole(currentUser.user.role)
         }
-      }, [currentUser])
-    
-      const showError = (message: string) => {
+    }, [currentUser])
+
+    const showError = (message: string) => {
         dispatch(setErrorToast(message))
-      }
+    }
 
     const fetchThisDonationRequest = async (requestId: string) => {
         setIsLoading(true);
@@ -90,6 +91,9 @@ const SingleDonationRequest = () => {
                         </p>
                     </div>
                     <div className="flex items-center justify-center">
+                        {(currentUser && currentUserRole === USER_ROLE_TYPE.NGO && thisRequest.ngo_profile_id === currentUser.profile?.id) &&
+                            <BaseButton href={`/me/edit-request-donation/${thisRequest.id}`} className="!px-4 !py-[0.4rem] !text-xs"> <FiEye className="mr-1" /> Edit</BaseButton>
+                        }
                         {
                             (currentUser && currentUserRole === USER_ROLE_TYPE.ADMIN && !thisRequest.disabled) &&
                             <BaseButton clickHandler={() => handleApproveDonationRequest(thisRequest.id)} className="!px-4 !py-[0.4rem] !text-xs">Approve</BaseButton>

@@ -42,12 +42,14 @@ const DonorDashboard = () => {
 
     useEffect(() => {
         if (currentUser && currentUser.user && currentUser.profile) {
-            if(currentUser.user?.role === USER_ROLE_TYPE.DONOR){
+            if (currentUser.user?.role === USER_ROLE_TYPE.DONOR) {
                 fetchDonorDonations(currentUser.profile.id);
-            }else if(currentUser.user?.role === USER_ROLE_TYPE.NGO){
+            } else if (currentUser.user?.role === USER_ROLE_TYPE.NGO) {
                 fetchRecepientDonations(currentUser.profile.id)
+            } else {
+                navigate("/me/profile")
             }
-        }else{
+        } else {
             navigate("/")
         }
     }, [currentUser])
@@ -105,13 +107,13 @@ const DonorDashboard = () => {
         try {
             const donations = await getDonationsByDonorId(donorId);
             const sortedDonations = await getDonorsDonationsByMonth(donorId);
-            console.log("Fetched donations : ", donations)
+          //console.log("Fetched donations : ", donations)
             if (donations && donations.length) { setUserDonations(donations) }
             if (sortedDonations && sortedDonations.length) {
                 setDonationsByMonth(sortedDonations)
             }
         } catch (error) {
-            console.log("Error fetching donations as : ", error)
+          //console.log("Error fetching donations as : ", error)
         }
         setDonationsLoading(false)
     }
@@ -120,26 +122,26 @@ const DonorDashboard = () => {
         try {
             const donations = await getDonationsByRecepientId(recepientId);
             const sortedDonations = await getNGOReceivedDonationsByMonth(recepientId);
-            console.log("Fetched donations : ", donations)
+          //console.log("Fetched donations : ", donations)
             if (donations && donations.length) { setUserDonations(donations) }
             if (sortedDonations && sortedDonations.length) {
                 setDonationsByMonth(sortedDonations)
             }
         } catch (error) {
-            console.log("Error fetching donations as : ", error)
+          //console.log("Error fetching donations as : ", error)
         }
         setDonationsLoading(false)
     }
 
-    const handleSignout = ()=>{
+    const handleSignout = () => {
         dispatch(logoutStart())
     }
 
     return (
         <div className="relative">
             {(currentUser.profile && currentUser.user) &&
-                <NoScrollbarContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[70%_30%] bg-white">
-                    <aside className="flex flex-col items-start justify-start px-4 pt-4 border-r-[1px] border-black/30 w-full">
+                <NoScrollbarContainer className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[70%_30%] bg-white`}>
+                    <aside className={`flex flex-col items-start justify-start px-4 pt-4 border-r-[1px] border-black/30 w-full`}>
                         <div className="flex items-center justify-between w-full">
                             <div className="flex flex-col">
                                 <span className="font-bold text-xl lg:text-2xl text-black/70">Welcome {currentUser.profile.name}</span>
@@ -150,7 +152,7 @@ const DonorDashboard = () => {
                             {/* </div> */}
 
                             <BaseButton clickHandler={handleSignout} className="!px-6 !text-xs !font-bold !py-[0.4rem] bg-indigo-600 rounded-3xl text-white">
-                               <> <span className="hidden md:inline">Logout</span> <span className="md:hidden"><PiSignOutBold className="text-xl"/></span> </> 
+                                <> <span className="hidden md:inline">Logout</span> <span className="md:hidden"><PiSignOutBold className="text-xl" /></span> </>
                             </BaseButton>
                         </div>
                         <div className="grid grid-cols-1 lg:grid-cols-2 items-center w-full">
@@ -160,8 +162,8 @@ const DonorDashboard = () => {
                                         <GenericImage className="w-full h-full rounded-full overflow-hidden" src={currentUser.profile.profile_image} />
                                         {currentUser.profile.verified &&
                                             <span className="w-fit absolute right-3 bottom-1 z-10 rounded-full bg-white">
-                                            <BiSolidBadgeCheck className="text-2xl text-indigo-600" />
-                                        </span>}
+                                                <BiSolidBadgeCheck className="text-2xl text-indigo-600" />
+                                            </span>}
                                     </div>
                                     <div className="flex flex-col items-start justify-start gap-1">
                                         <span className="font-semibold text-black text-lg leading-2">
@@ -172,7 +174,7 @@ const DonorDashboard = () => {
                                 </div>
                             </div>
                             <div className="grid grid-cols-1 w-full">
-                                <DashBoardCard className="!w-full lg:!max-w-full" title={`${ currentUser.user.role === USER_ROLE_TYPE.NGO ? "Received":"Completed"} Donations`} figure={donationsByMonth.reduce((acc, curr) => acc + curr.count, 0)} icon={<LuClock4 className="text-black text-lg" />} subtitle="In total" />
+                                <DashBoardCard className="!w-full lg:!max-w-full" title={`${currentUser.user.role === USER_ROLE_TYPE.NGO ? "Received" : "Completed"} Donations`} figure={donationsByMonth.reduce((acc, curr) => acc + curr.count, 0)} icon={<LuClock4 className="text-black text-lg" />} subtitle="In total" />
                             </div>
                         </div>
                         {/* Chart Section */}
@@ -180,21 +182,22 @@ const DonorDashboard = () => {
                             <Bar data={chartData} options={chartOptions} />
                         </div>
                     </aside>
+
                     <aside className="relative flex flex-col lg:overflow-y-scroll">
                         <div className="flex flex-col md:sticky md:top-2">
-                            <span className="text-xl font-bold text-black py-4 shadow-sm md:shadow-md w-full shadow-black/20 px-4 text-center">{currentUser.user.role === USER_ROLE_TYPE.DONOR ? "Donations":"Received donations"}</span>
+                            <span className="text-xl font-bold text-black py-4 shadow-sm md:shadow-md w-full shadow-black/20 px-4 text-center">{currentUser.user.role === USER_ROLE_TYPE.DONOR ? "Donations" : "Received donations"}</span>
                             <VerticalScrollableWrapper className="h-[calc(100vh-3rem)] px-4 relative">
                                 {userDonations.map((item, idx) => (
                                     <DonationItem item={item} key={idx} />
                                 ))}
-                                {donationsLoading && <AbsoluteLoaderLayout/> }
+                                {donationsLoading && <AbsoluteLoaderLayout />}
                                 {(!donationsLoading && !userDonations.length) && <p className="text-sm font-semibold text-black/70 w-full text-center py-6">No donations {currentUser.user.role === USER_ROLE_TYPE.NGO && 'received'} yet</p>}
                             </VerticalScrollableWrapper>
                         </div>
                     </aside>
                 </NoScrollbarContainer>
             }
-            {currentUserLoading && <AbsoluteLoaderLayout/>}
+            {currentUserLoading && <AbsoluteLoaderLayout />}
         </div>
     );
 };

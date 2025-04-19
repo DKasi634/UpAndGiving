@@ -8,7 +8,6 @@ interface AuthRejectedRouteProps {
 }
 
 const AuthRejectedRoute = ({ children }: AuthRejectedRouteProps) => {
-  console.log("In navigation !")
   const currentUser = useSelector(selectCurrentUser);
   return (
     <>{

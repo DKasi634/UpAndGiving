@@ -34,7 +34,7 @@ const Donate = ({ mode = "CREATE" }: DonatePageProps) => {
         name: "",
         category_id: "",
         description: "",
-        condition: "NEW",
+        // condition: "NEW",
         images: [],
 
     }
@@ -100,7 +100,8 @@ const Donate = ({ mode = "CREATE" }: DonatePageProps) => {
     const fetchDonation = async (donationId: string) => {
         try {
             const thisDonation = await getDonationById(donationId);
-            if (thisDonation) { setThisDonation(thisDonation) }
+            if (thisDonation) { 
+                setThisDonation(thisDonation) }
         } catch (error) {
 
         }
@@ -132,7 +133,7 @@ const Donate = ({ mode = "CREATE" }: DonatePageProps) => {
         if (!thisDonation.name) { setErrorValue("Item name is required"); newErrors.name = errorValue; return };
         if (!thisDonation.category_id) { setErrorValue("Category is required"); newErrors.category_id = errorValue; return }
         if (!thisDonation.description) { setErrorValue("Description is required"); newErrors.description = errorValue; return }
-        if (!thisDonation.condition) { setErrorValue("Condition is required"); newErrors.condition = errorValue; return }
+        // if (!thisDonation.condition) { setErrorValue("Condition is required"); newErrors.condition = errorValue; return }
 
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0; // Return true if no errors
@@ -217,7 +218,7 @@ const Donate = ({ mode = "CREATE" }: DonatePageProps) => {
 
 
                     {/* Condition */}
-                    <div>
+                    {/* <div>
                         <label className="block text-sm font-medium text-gray-700">Condition</label>
                         <div className="flex items-center justify-start gap-4 p-2">
                             <label className="cursor-pointer flex items-center justify-center text-xs font-bold text-black/70">
@@ -234,10 +235,10 @@ const Donate = ({ mode = "CREATE" }: DonatePageProps) => {
                         {errors.condition && (
                             <p className="text-red-500 text-sm">{errors.condition}</p>
                         )}
-                    </div>
+                    </div> */}
 
                     {/* Image Upload */}
-                    <ImageUploadFormGroup label='Choose images' imagesLimit={1} folderPath='Donations'
+                    <ImageUploadFormGroup label='Choose images' initialImages={thisDonation.images} imagesLimit={1} folderPath='Donations'
                         ref={imagesUploadRef} />
 
                     <BaseButton

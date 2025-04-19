@@ -60,7 +60,7 @@ export interface IAdmin {
     name:string,
     description:string,
     status:DONATION_STATUSES
-    condition:"NEW"|"USED",
+    // condition:"NEW"|"USED",
     images:string[],
     created_at:Date,
   }

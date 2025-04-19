@@ -7,7 +7,7 @@ import { supabase } from "./supabase.config";
 export  const supabaseSignUp = async (
   email: string,
   password: string,):Promise<User|null> => {
-    console.log(`Starting signup with email : ${email} and password : ${password}`)
+    // console.log(`Starting signup with email : ${email} and password : ${password}`)
     try {
       const { data, error } = await supabase.auth.signUp({email, password,
         options:{
@@ -20,7 +20,7 @@ export  const supabaseSignUp = async (
       } 
       return data.user
     } catch (error) {
-      console.log("Error signing up : ", error)
+    //console.log("Error signing up : ", error)
       return null
     }
     
@@ -28,7 +28,7 @@ export  const supabaseSignUp = async (
 
 export  const supabaseSignInWithEmail = async (email:string, password:string):Promise<User|null> => {
     // We should not rely on a returned user here, since we'll be catching them from the auth state changed listener
-    console.log("Signing in with email: ", email)
+    // console.log("Signing in with email: ", email)
     const { data, error } = await supabase.auth.signInWithPassword({
       email,
       password,
@@ -38,7 +38,7 @@ export  const supabaseSignInWithEmail = async (email:string, password:string):Pr
       console.error("Error signing in:", error.message);
       return null
     } else {
-      console.log("Signed in successfully with user : ", data.user);
+    //console.log("Signed in successfully with user : ", data.user);
       return data.user
     }
   };
@@ -66,10 +66,11 @@ export  const supabaseGoogleSignIn = async () => {
     });
   
     if (error) {
-      console.error("Error signing in with Google:", error.message);
+      
+      console.error("Error signing in with Google: ",!data,"\n", error.message);
     } else {
       // Redirects to Google's OAuth page
-      console.log("Redirecting to Google... with data : ", data);
+    //console.log("Redirecting to Google... with data : ", data);
     }
   };
 

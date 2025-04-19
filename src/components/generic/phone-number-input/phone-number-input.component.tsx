@@ -27,7 +27,7 @@ const PhoneNumberInput: React.FC<PhoneNumberInputProps> = ({
         onChange(sanitizedValue); // Pass the sanitized value to the parent component
       }
     } catch (error) {
-      console.log(error)
+    //console.log(error)
       return
     }
 

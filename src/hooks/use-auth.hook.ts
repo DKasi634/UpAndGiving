@@ -11,8 +11,9 @@ const useAuth = () => {
   useEffect(() => {
 
     const { data: authListener } = supabase.auth.onAuthStateChange(
-      async (event, session) => {
-        console.log(`Auth event: ${event} with user : `, session?.user);
+      async (_, session) => {
+        // Here we replace the event param with the underscore '_' since we're not using it for the moment
+        // console.log(`Auth event: ${event} with user : `, session?.user);
         
         if(session?.user && session.user.email && session.user.email !== currentUser?.user?.email){
           // console.log("Emails :", currentUser.user?.email, " and ", session.user.email, "\n Dispatching user...")

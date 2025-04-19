@@ -38,7 +38,7 @@ const GenericImage: React.FC<GenericImageProps> = ({
         <ShimerEffect className="absolute inset-0 w-full h-full bg-dark-variant" />
       )}
       <img
-        src={imageSrc}
+        src={imageSrc || MissingItemImage}
         alt={alt}
         className={className}
         onLoad={handleLoad}

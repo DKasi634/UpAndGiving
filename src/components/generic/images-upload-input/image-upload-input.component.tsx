@@ -1,4 +1,4 @@
-import React, { forwardRef, useImperativeHandle, useRef, useState } from "react";
+import React, { forwardRef, useEffect, useImperativeHandle, useRef, useState } from "react";
 import ImagesDisplayBox from "../images-display-box/images-display-box.component";
 import { SelectedImage } from "@/types";
 import { setErrorToast } from "@/store/toast/toast.actions";
@@ -9,7 +9,7 @@ import { uploadToSupabaseStorage } from "@/utils/supabase/supabase.utils";
 type ImagesUploadFormGroupProps = {
   imagesLimit: number;
   label: string;
-  initialImages?: string[]; // Accepts remote image URLs
+  readonly initialImages?: string[]; // Accepts remote image URLs
   folderPath: string;
 };
 
@@ -22,6 +22,16 @@ const ImageUploadFormGroup = forwardRef<
     const [remoteImages, setRemoteImages] = useState<string[]>(initialImages); // State for remote images
     const dispatch = useDispatch();
     const fileInputRef = useRef<HTMLInputElement | null>(null);
+
+    useEffect(()=>{
+      if(initialImages.length){
+        setRemoteImages(initialImages)
+      }
+    }, [initialImages])
+
+    // useEffect(()=>{
+    //   console.log("\nRemote images changed :", remoteImages)
+    // }, [remoteImages])
 
     const showErrorToast = (message: string) => {
       dispatch(setErrorToast(message));
@@ -120,7 +130,8 @@ const ImageUploadFormGroup = forwardRef<
 
     const handleUploadToStorage = async (): Promise<string[]> => {
       const urls: string[] = [];
-      if (!selectedImages || !selectedImages.length) {
+      if (!selectedImages || !selectedImages.length || selectedImages.length > imagesLimit) {
+        // console.log("Selected images : ", selectedImages)
         return [];
       }
       for (const { file } of selectedImages) {
@@ -145,12 +156,18 @@ const ImageUploadFormGroup = forwardRef<
     }));
 
     const handleRemoveImage = (urlToRemove: string) => {
+      // console.log("\nRemoving image : ", urlToRemove,"\nWith remote images : ", remoteImages)
       // Remove from local images
       setSelectedImages((prev) =>
         prev.filter(({ url }) => url !== urlToRemove)
       );
       // Remove from remote images
-      setRemoteImages((prev) => prev.filter((url) => url !== urlToRemove));
+      setRemoteImages((prev) => prev.filter((url) => {
+        if(url !== urlToRemove) {
+          return true
+        }
+        return false
+      }));
     };
 
     const triggerInputClick = () => {
@@ -169,7 +186,7 @@ const ImageUploadFormGroup = forwardRef<
             {label}*
           </label>
           <div className="flex items-center justify-start gap-2">
-            {selectedImages.length + remoteImages.length < imagesLimit && (
+            {(selectedImages.length + remoteImages.length) < imagesLimit && (
               <>
                 <button
                   type="button"
@@ -196,7 +213,7 @@ const ImageUploadFormGroup = forwardRef<
               </>
             )}
             <ImagesDisplayBox
-              images={[...selectedImages.map(({ url }) => url), ...remoteImages]}
+              images={[...selectedImages.map(({ url }) => url), ...remoteImages].slice(0, imagesLimit)}
               onRemoveImage={handleRemoveImage}
             />
           </div>
