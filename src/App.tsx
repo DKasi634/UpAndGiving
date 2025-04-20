@@ -22,6 +22,7 @@ import SingleDonationRequest from './pages/donor/single-donation-request.page'
 import AllDonationsPage from './pages/donor/all-donations.page'
 import SingleDonationPage from './pages/donor/single-donation.page'
 import AllDonationRequestsPage from './pages/donor/all-requests.page'
+import AuthCallbackPage from './pages/auth/auth-callback.page'
 
 function App() {
 
@@ -36,8 +37,10 @@ function App() {
         <Route path='auth' element={<AuthRejectedRoute><Outlet/></AuthRejectedRoute> }>
           <Route index path='signin' element={<SignInPage />} />
           <Route path='signup' element={<SignUpPage />} />
+          <Route path='callback' element={<AuthCallbackPage />} />
         </Route>
         <Route path='me' element={<AuthProtectedRoute><AccountNavigation /></AuthProtectedRoute>}>
+          <Route index element={<DonorDashboard />} />
           <Route path='request-donation' element={<RequestDonation mode='CREATE' />} />
           <Route path='edit-request-donation/:requestId' element={<RequestDonation mode='EDIT' />} />
           <Route path='dashboard' element={<DonorDashboard />} />

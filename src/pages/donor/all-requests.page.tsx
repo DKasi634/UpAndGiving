@@ -37,7 +37,7 @@ const AllDonationRequestsPage = () => {
             <div className="grid grid-cols-1 md:grid-cols-2  lg:flex items-center justify-start  flex-wrap gap-6 px-4 md:px-10 py-12">
                 {
                     donationRequests.map(donationReq => (
-                        <DonationRequestCard key={donationReq.id} request={donationReq} className="lg:!min-w-[16rem]" />
+                        <DonationRequestCard key={donationReq.id} request={donationReq} className="lg:!max-w-[16rem]" />
                     ))
                 }
             </div>

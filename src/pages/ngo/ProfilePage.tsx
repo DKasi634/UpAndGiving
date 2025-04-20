@@ -162,7 +162,7 @@ const ProfilePage = () => {
                   <BaseButton
                     clickHandler={handleSave}
                     disabled={loading}
-                    className="bg-indigo-600 text-white px-4 py-2 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                    className="bg-indigo-600 text-white px-4 py-2 hover:bg-indigo-700 focus:outline-none ">
                     {loading ? "Saving..." : "Save Changes"}
                   </BaseButton>
                 </>
