@@ -5,7 +5,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { emailSignInStart } from "@/store/auth/auth.actions";
 import { selectAuthLoading, selectCurrentUser } from "@/store/auth/auth.selector";
-import GoogleSigninButton from "@/components/generic/base-button/google-button.component";
+// import GoogleSigninButton from "@/components/generic/base-button/google-button.component";
 import GenericInput from "@/components/generic/generic-input/generic-input.component";
 import { nextRouteLocation } from "@/types";
 import AbsoluteLoaderLayout from "@/components/generic/loader/absolute-loader-layout.component";
@@ -113,7 +113,7 @@ const SignInPage = () => {
           </BaseButton>
 
           {/* Continue with Google Button */}
-          <GoogleSigninButton/>
+          {/* <GoogleSigninButton/> */}
         </form>
       </div>
 

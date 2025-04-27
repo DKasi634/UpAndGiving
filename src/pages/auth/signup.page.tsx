@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { clearAuthError, clearNavigateToSignIn, registerStart } from "@/store/auth/auth.actions";
 import { selectAuthError, selectAuthLoading, selectCurrentUser, selectNavigateToSignIn } from "@/store/auth/auth.selector";
 import { AuthError } from "@/utils/error.utils";
-import GoogleSigninButton from "@/components/generic/base-button/google-button.component";
+// import GoogleSigninButton from "@/components/generic/base-button/google-button.component";
 import { nextRouteLocation } from "@/types";
 import { parsePhoneNumber } from "react-phone-number-input";
 import AbsoluteLoaderLayout from "@/components/generic/loader/absolute-loader-layout.component";
@@ -77,36 +77,36 @@ const SignUpPage: React.FC = () => {
       case "firstName":
       case "lastName":
         if (!value.trim()) {
-          error = "Ce champ est obligatoire."; // This field is required.
+          error = "This field is required"; // This field is required.
         }
         break;
       case "email":
         if (!value.trim()) {
-          error = "L'email est obligatoire."; // Email is required.
+          error = "Email is required"; // Email is required.
         } else if (!/\S+@\S+\.\S+/.test(value)) {
-          error = "Format d'email invalide."; // Invalid email format.
+          error = "Invalid email."; // Invalid email format.
         }
         break;
       case "phoneNumber":
         try {
           if (!parsePhoneNumber(value)?.isValid()) {
-            error = "Numero invalide";
+            error = "Invalid number";
           }
         } catch (error) {
-          error = "Numero invalide";
+          error = "Invalid number";
         }
 
         break;
       case "password":
         if (!value.trim()) {
-          error = "Le mot de passe est obligatoire."; // Password is required.
+          error = "Password is required"; // Password is required.
         } else if (value.length < 6) {
-          error = "Le mot de passe doit contenir au moins 6 caractères."; // Password must be at least 6 characters.
+          error = "Password must be at least 6 characters."; // Password must be at least 6 characters.
         }
         break;
       case "confirmPassword":
         if (value !== formData.password) {
-          error = "Les mots de passe ne correspondent pas."; // Passwords do not match.
+          error = "Passwords don't match."; // Passwords do not match.
         }
         break;
       case "accountType":
@@ -240,7 +240,7 @@ const SignUpPage: React.FC = () => {
             Sign Up 
           </BaseButton>
 
-          <GoogleSigninButton />
+          {/* <GoogleSigninButton /> */}
         </form>
       </div>
       {authLoading && <AbsoluteLoaderLayout />}

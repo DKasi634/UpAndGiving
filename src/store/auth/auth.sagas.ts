@@ -220,6 +220,7 @@ function* setAuthUser({
     if (thisUser && thisUserProfile) {
       yield put(signInSuccess(thisUser, thisUserProfile));
     } else {
+      // console.log("\n This user : ", thisUser, "Profile : \n", thisUserProfile)
       throw new Error("Something went wrong, no user or profile !");
     }
   } catch (error) {

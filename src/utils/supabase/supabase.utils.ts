@@ -129,11 +129,12 @@ export const createOrUpdateProfile = async (userId:string, profile:IProfile):Pro
 export const createOrUpdateUser = async (
     user: IUser
   ): Promise<IUser | null> => {
+
     if (!user.email) {
       console.error("Missing required fields for user or profile.");
       return null;
     }
-  
+    // console.log("\nCreating or updating user : ", user)
     try {
       // Step 1: Upsert the user in the `users` table
       const { data: userData, error: userError } = await supabase
@@ -157,6 +158,7 @@ export const createOrUpdateUser = async (
         console.error("Error creating/updating user:", userError.message);
         return null;
       }
+      // console.log("\nCreated or updated user : ", userData)
       return userData as IUser;
     } catch (error) {
       console.error("Unexpected error:", error);

@@ -1,4 +1,4 @@
-import { IDonation, USER_ROLE_TYPE } from "@/api/types"
+import { DONATION_STATUSES, IDonation, USER_ROLE_TYPE } from "@/api/types"
 import { FiEdit } from "@/assets"
 import { selectCurrentUser } from "@/store/auth/auth.selector"
 import { useSelector } from "react-redux"
@@ -45,7 +45,7 @@ const DonationItem = ({ className = "", item }: DonationItemProps) => {
             <div className="flex items-center justify-start gap-2">
                 <span className="text-sm font-bold text-black/80 line-clamp-1 text-left">{item.name}</span>
                 <span className={`text-xs px-3 py-[0.2rem] rounded-xl font-light ${item.status === "ACCEPTED" ? ' bg-green-600/70' : item.status === "PENDING" ? 'bg-indigo-950/40' : 'bg-orange-600/60'} text-white font-light`}>{item.status}</span>
-                {currentUser.user?.role === USER_ROLE_TYPE.DONOR &&
+                {(currentUser.user?.role === USER_ROLE_TYPE.DONOR && !(item.status === DONATION_STATUSES.ACCEPTED || item.status === DONATION_STATUSES.DELIVERED)) &&
                     <span className="text-lg text-blue-600 pl-2 cursor-pointer" onClick={handleEdit}><FiEdit /></span>
                 }
             </div>
