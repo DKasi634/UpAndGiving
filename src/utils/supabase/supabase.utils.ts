@@ -1,11 +1,8 @@
-import { DONATION_STATUSES, ICategory, IDonation, IDonationRequest, IProfile, IUser, USER_ROLE_TYPE } from "@/api/types";
+import { DONATION_STATUSES, ICategory, IDirectDonation, IDonation, IDonationRequest, IProfile, IUser, USER_ROLE_TYPE } from "@/api/types";
 import { supabase } from "./supabase.config";
 import { getNewUUID } from "..";
 
 const SUPABASE_BUCKET_NAME = import.meta.env.VITE_SUPABASE_BUCKET_NAME;
-// const SUPABASE_SCHEMAS = {
-//   DONORS:""
-// }
 
 
 // Upload an image
@@ -404,5 +401,45 @@ export const disableDonationRequest  = async (donationReqId:string):Promise<IDon
     return null
   }
 }
+
+
+export const createDirectDonation = async (donation: IDirectDonation) => {
+    const { data, error } = await supabase.from("direct_donations").insert([donation]).select();
+    if (error) throw error;
+    return data[0] as IDirectDonation;
+};
+
+export const getAvailableDirectDonations = async () => {
+    const { data, error } = await supabase.from("direct_donations").select("*").eq("status", "AVAILABLE");
+    if (error) throw error;
+    return data as IDirectDonation[];
+};
+
+export const getDirectDonations = async (): Promise<IDirectDonation[]> => {
+    const { data, error } = await supabase.from("direct_donations").select("*");
+    if (error) throw error;
+    return data;
+};
+
+export const claimDirectDonation = async (donationId: string, claimerId: string) => {
+    const { data, error } = await supabase
+        .from("direct_donations")
+        .update({ claimer_id: claimerId, status: "CLAIMED" })
+        .eq("id", donationId)
+        .is("claimer_id", null)
+        .select();
+    if (error) throw error;
+    return data.length > 0 ? data[0] : null;
+};
+
+export const getDirectDonationById = async (donationId: string): Promise<IDirectDonation | null> => {
+    const { data, error } = await supabase
+        .from("direct_donations")
+        .select("*")
+        .eq("id", donationId)
+        .single();
+    if (error) throw error;
+    return data;
+};
 
 

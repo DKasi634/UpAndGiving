@@ -1,0 +1,302 @@
+[
+    {
+        "id": "1",
+        "keywords": ["donate", "post", "donation", "share", "give"],
+        "question": "How do I post a donation?",
+        "answer": "Go to your dashboard and click 'Post Direct Donation'. Fill in the details and submit."
+    },
+    {
+        "id": "2",
+        "keywords": ["claim", "take", "get", "pick", "receive"],
+        "question": "How do I claim a donation?",
+        "answer": "Visit '/me/browse', find an available donation, and click 'Claim'. Follow the instructions to confirm."
+    },
+    {
+        "id": "3",
+        "keywords": ["direct", "vetted", "difference", "types", "kinds"],
+        "question": "What’s the difference between direct and vetted donations?",
+        "answer": "Direct donations are instantly visible and claimable by anyone. Vetted donations require admin approval and are for verified NGOs."
+    },
+    {
+        "id": "4",
+        "keywords": ["help", "support", "contact", "issue", "problem"],
+        "question": "I need help with the platform.",
+        "answer": "Describe your issue or email support@yourplatform.com. We respond within 24 hours."
+    },
+    {
+        "id": "5",
+        "keywords": ["account", "profile", "edit", "update", "change"],
+        "question": "How do I edit my profile?",
+        "answer": "Go to '/me/profile', update your details in the settings, and save changes."
+    },
+    {
+        "id": "6",
+        "keywords": ["signup", "register", "join", "create account"],
+        "question": "How do I sign up for an account?",
+        "answer": "Click 'Sign Up' on the homepage, enter your details, and verify your email to create an account."
+    },
+    {
+        "id": "7",
+        "keywords": ["signin", "login", "access", "log in"],
+        "question": "How do I sign in to my account?",
+        "answer": "Click 'Sign In' on the homepage, enter your email and password, and click 'Login'."
+    },
+    {
+        "id": "8",
+        "keywords": ["password", "reset", "forgot", "recover"],
+        "question": "How do I reset my password?",
+        "answer": "On the sign-in page, click 'Forgot Password', enter your email, and follow the reset link sent."
+    },
+    {
+        "id": "9",
+        "keywords": ["dashboard", "find", "navigate", "home"],
+        "question": "How do I find my dashboard?",
+        "answer": "After signing in, click 'Dashboard' in the navigation or visit '/me/dashboard'."
+    },
+    {
+        "id": "10",
+        "keywords": ["donation", "edit", "change", "modify"],
+        "question": "Can I edit a donation I posted?",
+        "answer": "Yes, go to '/me/dashboard', find your donation under 'My Donations', and click 'Edit'."
+    },
+    {
+        "id": "11",
+        "keywords": ["donation", "cancel", "delete", "remove"],
+        "question": "How do I cancel a donation?",
+        "answer": "In '/me/dashboard', find your donation in 'My Donations', select 'Cancel', and confirm."
+    },
+    {
+        "id": "12",
+        "keywords": ["ngo", "request", "donation", "apply"],
+        "question": "How can my NGO request a donation?",
+        "answer": "Go to '/me/request-donation', fill out the form, and submit. Admins will review your request."
+    },
+    {
+        "id": "13",
+        "keywords": ["ngo", "verify", "verified", "approval"],
+        "question": "How do I get my NGO verified?",
+        "answer": "During sign-up, select 'NGO' and upload verification documents. Our team will review within 48 hours."
+    },
+    {
+        "id": "14",
+        "keywords": ["browse", "find", "donations", "search"],
+        "question": "How do I browse available donations?",
+        "answer": "Visit '/me/browse' to see direct donations. Use filters for location or type."
+    },
+    {
+        "id": "15",
+        "keywords": ["claim", "failed", "error", "not working"],
+        "question": "Why couldn’t I claim a donation?",
+        "answer": "The donation may be claimed or expired. Try another or contact support@yourplatform.com."
+    },
+    {
+        "id": "16",
+        "keywords": ["request", "edit", "change", "modify"],
+        "question": "Can I edit my NGO donation request?",
+        "answer": "Yes, go to '/me/my-requests', find your request, and click 'Edit' before approval."
+    },
+    {
+        "id": "17",
+        "keywords": ["request", "cancel", "delete", "withdraw"],
+        "question": "How do I cancel an NGO donation request?",
+        "answer": "In '/me/my-requests', find your request, select 'Cancel', and confirm."
+    },
+    {
+        "id": "18",
+        "keywords": ["donation", "history", "past", "record"],
+        "question": "How do I view my donation history?",
+        "answer": "Go to '/me/all-donations' to see your past and active donations."
+    },
+    {
+        "id": "19",
+        "keywords": ["safety", "safe", "trust", "secure"],
+        "question": "Is it safe to use the platform?",
+        "answer": "Yes, we verify NGOs and monitor donations. Confirm claimant details and report issues to support@yourplatform.com."
+    },
+    {
+        "id": "20",
+        "keywords": ["purpose", "mission", "about", "goal"],
+        "question": "What is the purpose of the platform?",
+        "answer": "We connect donors with communities and NGOs to share food, reducing waste and helping those in need."
+    },
+    {
+        "id": "21",
+        "keywords": ["fees", "cost", "charge", "price"],
+        "question": "Are there any fees to use the platform?",
+        "answer": "No, our platform is free for all users, including donors and NGOs."
+    },
+    {
+        "id": "22",
+        "keywords": ["location", "area", "near", "local"],
+        "question": "Can I find donations near my location?",
+        "answer": "Yes, on '/me/browse', use the location filter to find donations in your area."
+    },
+    {
+        "id": "23",
+        "keywords": ["notification", "alert", "update", "reminder"],
+        "question": "How do I get notifications for new donations?",
+        "answer": "In '/me/profile', enable notifications for new donations or requests in your area."
+    },
+    {
+        "id": "24",
+        "keywords": ["logout", "signout", "exit"],
+        "question": "How do I log out of my account?",
+        "answer": "Click your profile in the navigation and select 'Log Out'."
+    },
+    {
+        "id": "25",
+        "keywords": ["delete", "account", "remove", "close"],
+        "question": "How do I delete my account?",
+        "answer": "Email support@yourplatform.com with your account details to request deletion."
+    },
+    {
+        "id": "26",
+        "keywords": ["donation", "status", "track", "check"],
+        "question": "How do I track the status of my donation?",
+        "answer": "In '/me/dashboard', under 'My Donations', view the status (e.g., Posted, Claimed)."
+    },
+    {
+        "id": "27",
+        "keywords": ["admin", "approval", "vetted", "review"],
+        "question": "How long does it take for vetted donations to be approved?",
+        "answer": "Vetted donation requests are reviewed within 48 hours. You’ll be notified once approved."
+    },
+    {
+        "id": "28",
+        "keywords": ["food", "type", "allowed", "permitted"],
+        "question": "What types of food can I donate?",
+        "answer": "Donate non-perishable or fresh food in good condition. Check guidelines on '/me/direct-donation'."
+    },
+    {
+        "id": "29",
+        "keywords": ["error", "page", "not found", "broken"],
+        "question": "Why am I seeing a 'Not Found' error?",
+        "answer": "The page may not exist or requires sign-in. Check the URL or sign in. Contact support@yourplatform.com if it persists."
+    },
+    {
+        "id": "30",
+        "keywords": ["report", "issue", "problem", "complain"],
+        "question": "How do I report a problem with a donation or user?",
+        "answer": "Use the 'Report' button on the donation or user profile, or email support@yourplatform.com."
+    },
+    {
+        "id": "31",
+        "keywords": ["bulk", "multiple", "donations", "many"],
+        "question": "Can I post multiple donations at once?",
+        "answer": "Currently, post donations one at a time via '/me/direct-donation'. Contact support@yourplatform.com for bulk donation assistance."
+    },
+    {
+        "id": "32",
+        "keywords": ["schedule", "time", "pickup", "delivery"],
+        "question": "Can I schedule a donation pickup time?",
+        "answer": "When posting a donation, add pickup time details in the description. Coordinate with the claimant directly."
+    },
+    {
+        "id": "33",
+        "keywords": ["expire", "expiration", "old", "remove"],
+        "question": "What happens to unclaimed donations?",
+        "answer": "Unclaimed donations expire after 7 days and are removed. Repost if needed via '/me/direct-donation'."
+    },
+    {
+        "id": "34",
+        "keywords": ["ngo", "multiple", "requests", "many"],
+        "question": "Can my NGO submit multiple donation requests?",
+        "answer": "Yes, submit multiple requests via '/me/request-donation'. Each is reviewed separately."
+    },
+    {
+        "id": "35",
+        "keywords": ["ngo", "verification", "failed", "rejected"],
+        "question": "Why was my NGO verification rejected?",
+        "answer": "Check your email for rejection reasons. Resubmit documents via '/me/profile' or contact support@yourplatform.com."
+    },
+    {
+        "id": "36",
+        "keywords": ["email", "verify", "confirmation", "not received"],
+        "question": "I didn’t receive my email verification link.",
+        "answer": "Check your spam folder. If not found, request a new link via the sign-up page or contact support@yourplatform.com."
+    },
+    {
+        "id": "37",
+        "keywords": ["two-factor", "2fa", "security", "authentication"],
+        "question": "How do I enable two-factor authentication?",
+        "answer": "In '/me/profile', go to security settings and enable 2FA. Follow the prompts to set it up."
+    },
+    {
+        "id": "38",
+        "keywords": ["profile", "visibility", "public", "private"],
+        "question": "Can I make my profile private?",
+        "answer": "In '/me/profile', adjust privacy settings to control what others see about your account."
+    },
+    {
+        "id": "39",
+        "keywords": ["limit", "donation", "maximum", "cap"],
+        "question": "Is there a limit to how many donations I can post?",
+        "answer": "You can post up to 5 active donations at a time. Cancel or complete existing ones to post more."
+    },
+    {
+        "id": "40",
+        "keywords": ["ban", "suspended", "blocked", "account"],
+        "question": "Why was my account suspended?",
+        "answer": "Accounts may be suspended for policy violations. Check your email or contact support@yourplatform.com for details."
+    },
+    {
+        "id": "41",
+        "keywords": ["privacy", "data", "personal", "information"],
+        "question": "How is my personal information protected?",
+        "answer": "We use encryption and strict policies to protect your data. See our privacy policy on the homepage."
+    },
+    {
+        "id": "42",
+        "keywords": ["accessibility", "screen reader", "disability"],
+        "question": "Is the platform accessible for screen readers?",
+        "answer": "We aim for accessibility. Use screen readers with our site, and report issues to support@yourplatform.com."
+    },
+    {
+        "id": "43",
+        "keywords": ["mobile", "app", "download", "phone"],
+        "question": "Is there a mobile app for the platform?",
+        "answer": "No mobile app yet, but our site is mobile-friendly. Access it via your browser at yourplatform.com."
+    },
+    {
+        "id": "44",
+        "keywords": ["language", "translate", "english"],
+        "question": "Can I use the platform in another language?",
+        "answer": "Currently, we support English only. Use browser translation tools or contact support@yourplatform.com for assistance."
+    },
+    {
+        "id": "45",
+        "keywords": ["slow", "loading", "performance", "lag"],
+        "question": "Why is the platform loading slowly?",
+        "answer": "Check your internet connection or clear your browser cache. If it persists, contact support@yourplatform.com."
+    },
+    {
+        "id": "46",
+        "keywords": ["offline", "no internet", "access"],
+        "question": "Can I use the platform offline?",
+        "answer": "The platform requires an internet connection. Save donation details offline and post when connected."
+    },
+    {
+        "id": "47",
+        "keywords": ["feedback", "suggestion", "improve"],
+        "question": "How can I provide feedback about the platform?",
+        "answer": "Email your feedback to support@yourplatform.com or use the 'Feedback' form on the homepage."
+    },
+    {
+        "id": "48",
+        "keywords": ["donation", "guidelines", "rules", "policy"],
+        "question": "What are the donation guidelines?",
+        "answer": "Donate safe, edible food. Review full guidelines on '/me/direct-donation' before posting."
+    },
+    {
+        "id": "49",
+        "keywords": ["contact", "claimant", "communicate", "message"],
+        "question": "How do I contact the person claiming my donation?",
+        "answer": "After a claim, use the platform’s messaging system on the donation’s page to coordinate."
+    },
+    {
+        "id": "50",
+        "keywords": ["volunteer", "help", "contribute", "join"],
+        "question": "Can I volunteer to help with the platform?",
+        "answer": "We love volunteers! Email support@yourplatform.com to learn about opportunities."
+    }
+]

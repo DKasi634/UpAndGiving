@@ -148,10 +148,10 @@ const Donate = ({ mode = "CREATE" }: DonatePageProps) => {
             setErrorValue("You need to select at least one image"); return
         }
         if (imagesUploadRef.current) {
-            if (!imagesUploadRef.current.hasSelectedImages() && !thisDonation.images.length) { showErrorToast("Choose at least one image, max 3"); return }
+            if (!imagesUploadRef.current.hasSelectedImages() && !thisDonation.images.length) { showErrorToast("Choose at least one image, max 3"); setLoading(true);return }
             const uploadedImagesUrls = await imagesUploadRef.current.uploadImages();
             const initialAvailableImages = imagesUploadRef.current.getAvailableRemoteImages();
-            if (!uploadedImagesUrls.length && !thisDonation.images.length) { showErrorToast("Failed to upload images. Check your network and try again"); return }
+            if (!uploadedImagesUrls.length && !thisDonation.images.length) { showErrorToast("Failed to upload images. Check your network and try again");setLoading(true); return }
 
             setThisDonation(prev => ({ ...prev, images: [...uploadedImagesUrls, ...initialAvailableImages] }));
             setCanCreateDonation(true);
@@ -215,27 +215,6 @@ const Donate = ({ mode = "CREATE" }: DonatePageProps) => {
                     {errors.description && (
                         <p className="text-red-500 text-sm">{errors.description}</p>
                     )}
-
-
-                    {/* Condition */}
-                    {/* <div>
-                        <label className="block text-sm font-medium text-gray-700">Condition</label>
-                        <div className="flex items-center justify-start gap-4 p-2">
-                            <label className="cursor-pointer flex items-center justify-center text-xs font-bold text-black/70">
-                                <input type="radio" name="condition" value="new" checked={thisDonation.condition === "NEW"}
-                                    onChange={handleChange} className="mr-2" />
-                                New
-                            </label>
-                            <label className="cursor-pointer flex items-center justify-center text-xs font-bold text-black/70">
-                                <input type="radio" name="condition" value="used" checked={thisDonation.condition === "USED"} onChange={handleChange}
-                                    className="mr-2" />
-                                Used
-                            </label>
-                        </div>
-                        {errors.condition && (
-                            <p className="text-red-500 text-sm">{errors.condition}</p>
-                        )}
-                    </div> */}
 
                     {/* Image Upload */}
                     <ImageUploadFormGroup label='Choose images' initialImages={thisDonation.images} imagesLimit={1} folderPath='Donations'

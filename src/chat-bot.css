@@ -1,0 +1,70 @@
+.react-chatbot-kit-chat-container {
+    width: 100% !important; /* Override default width to fill parent */
+    max-width: 100%; /* Ensure it doesn't exceed parent */
+    height: 100%; /* Fill parent height */
+}
+.react-chatbot-kit-chat-inner-container {
+    width: 100%; /* Ensure inner container fills parent */
+    height: 100%; /* Fill parent height */
+    display: flex;
+    flex-direction: column;
+}
+.react-chatbot-kit-chat-message-container {
+    flex-grow: 1; /* Allow message area to expand */
+    overflow-y: auto; /* Enable scrolling for messages */
+    padding: 0.5rem;
+}
+.react-chatbot-kit-chat-header {
+    background-color: rgba(79, 70, 229, 0.9); /* Indigo-600 with 90% opacity */
+    color: white;
+    font-weight: bold;
+    border-radius: 0.5rem;
+    border-top-right-radius: 0.5rem;
+    padding: 0.75rem;
+}
+.react-chatbot-kit-chat-bot-message {
+    background-color: #4374f6; /* Gray-100 */
+    border-radius: 0.5rem;
+    margin: 0.5rem;
+    padding: 0.75rem;
+    width: fit-content !important;
+    min-width: min-content !important;
+}
+.react-chatbot-kit-chat-bot-message .react-chatbot-kit-chat-bot-message-arrow {
+    border-right-color: #f3f4f6; /* Match bot message background */
+}
+.react-chatbot-kit-chat-user-message {
+    background-color: #4f46e5; /* Indigo-600 */
+    color: white;
+    border-radius: 0.5rem;
+    margin: 0.5rem;
+    padding: 0.75rem;
+}
+.react-chatbot-kit-chat-user-message .react-chatbot-kit-chat-user-message-arrow {
+    border-left-color: #4f46e5; /* Match user message background */
+}
+.react-chatbot-kit-chat-input-container {
+    padding: 0.5rem;
+    background-color: #ffffff; /* White to match parent */
+}
+.react-chatbot-kit-chat-input {
+    background-color: rgba(143, 144, 146, 0.1); /* Gray-100 with 50% opacity */
+    border: 1px solid #d1d5db; /* Gray-300 */
+    border-radius: 0.5rem;
+    width: 100%;
+    padding: 0.5rem;
+    outline: none;
+    font-size: 0.875rem; /* Match Tailwind text-sm */
+}
+.react-chatbot-kit-chat-input:focus {
+    border-color: #4f46e5; /* Indigo-600 */
+    box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.2); /* Indigo-600 ring */
+}
+.react-chatbot-kit-chat-btn-send {
+    background-color: #4f46e5; /* Indigo-600 */
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+}
+.react-chatbot-kit-chat-btn-send:hover {
+    background-color: #4338ca; /* Indigo-700 */
+}

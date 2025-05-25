@@ -88,3 +88,20 @@ export type ICategory = {
   category_name:string,
   created_at:Date
 }
+
+export enum DIRECT_DONATION_STATUSES {
+    AVAILABLE = "AVAILABLE",
+    CLAIMED = "CLAIMED",
+}
+
+export type IDirectDonation = {
+    id: string;
+    donor_id: string;
+    category_id: string;
+    name: string;
+    description: string;
+    images: string[];
+    created_at: Date;
+    status: DIRECT_DONATION_STATUSES;
+    claimer_id: string|null;
+};

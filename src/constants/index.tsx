@@ -3,8 +3,9 @@ import { MdPostAdd, FaUsers, AiOutlineGift,FiRefreshCw, AiOutlineLineChart, IoSe
 import { DonationItemType } from "@/components/donor/donation-item.component";
 import { IFaq } from "@/components/generic/faq/faq.component";
 import { MenuItemType } from "@/components/generic/menu-item/menu-item.component";
-import { DonationRequest, LandingProcessStep } from "@/types";
+import { LandingProcessStep } from "@/types";
 import { ReactElement } from "react";
+import { RiExchange2Fill } from "react-icons/ri";
 
 
 export const faqs:IFaq[] = [
@@ -194,6 +195,13 @@ export const menuItems: MenuItemType[] = [
       restrictedTo:[USER_ROLE_TYPE.DONOR]
     },
     {
+      icon: <RiExchange2Fill />,
+      label: "Share directly",
+      name: "direct-donation",
+      path: "direct-donation",
+      restrictedTo:[USER_ROLE_TYPE.DONOR]
+    },
+    {
       icon: <PiHandsPraying />,
       label: "Request",
       name: "request",
@@ -219,7 +227,7 @@ export const menuItems: MenuItemType[] = [
       label: "All Donations",
       name: "all donations",
       path: "all-donations",
-      restrictedTo:[USER_ROLE_TYPE.ADMIN]
+      restrictedTo:[USER_ROLE_TYPE.ADMIN, USER_ROLE_TYPE.DONOR]
     },
     {
       icon: <VscGitPullRequestNewChanges />,
@@ -230,109 +238,4 @@ export const menuItems: MenuItemType[] = [
     },
   ];
 
-  export const dummyDonationRequests: DonationRequest[] = [
-    {
-        id: "1",
-        ngoName: "Hope for Tomorrow",
-        ngoProfileImage: "https://via.placeholder.com/300?text=NGO+Logo",
-        title: "Winter Coats Needed",
-        description: "We are urgently collecting winter coats for families in Kisenyi slum before the cold season begins.",
-        urgencyLevel: "high",
-    },
-    {
-        id: "2",
-        ngoName: "Brighter Futures Initiative",
-        ngoProfileImage: "https://via.placeholder.com/300?text=NGO+Logo",
-        title: "School Supplies Drive",
-        description: "Help us provide notebooks, pens, and backpacks to children in rural schools.",
-        urgencyLevel: "medium",
-    },
-    {
-        id: "3",
-        ngoName: "Green Earth Uganda",
-        ngoProfileImage: "https://via.placeholder.com/300?text=NGO+Logo",
-        title: "Tree Planting Campaign",
-        description: "Support our initiative to plant 1,000 trees in urban areas to combat climate change.",
-        urgencyLevel: "low",
-    },
-    {
-        id: "4",
-        ngoName: "Healing Hands Foundation",
-        ngoProfileImage: "https://via.placeholder.com/300?text=NGO+Logo",
-        title: "Medical Aid for Refugees",
-        description: "We are raising funds for essential medical supplies to support refugees in conflict zones.",
-        urgencyLevel: "high",
-    },
-    {
-        id: "5",
-        ngoName: "Women Empowerment Network",
-        ngoProfileImage: "https://via.placeholder.com/300?text=NGO+Logo",
-        title: "Skills Training for Women",
-        description: "Help us organize vocational training sessions for underprivileged women in rural areas.",
-        urgencyLevel: "medium",
-    },
-    {
-        id: "6",
-        ngoName: "Clean Water Project",
-        ngoProfileImage: "https://via.placeholder.com/300?text=NGO+Logo",
-        title: "Borehole Construction Fund",
-        description: "Support our effort to build boreholes in drought-prone areas to provide clean drinking water.",
-        urgencyLevel: "high",
-    },
-    {
-        id: "7",
-        ngoName: "Feed the Hungry Initiative",
-        ngoProfileImage: "https://via.placeholder.com/300?text=NGO+Logo",
-        title: "Food Pack Distribution",
-        description: "We aim to distribute 5,000 food packs to families affected by floods in northern regions.",
-        urgencyLevel: "high",
-    },
-    {
-        id: "8",
-        ngoName: "Youth Empowerment Center",
-        ngoProfileImage: "https://via.placeholder.com/300?text=NGO+Logo",
-        title: "Job Readiness Program",
-        description: "Join us in preparing youth for the job market through career counseling and workshops.",
-        urgencyLevel: "low",
-    },
-    {
-        id: "9",
-        ngoName: "Animal Rescue Squad",
-        ngoProfileImage: "https://via.placeholder.com/300?text=NGO+Logo",
-        title: "Shelter Renovation",
-        description: "We need support to renovate our animal shelter to accommodate more stray animals.",
-        urgencyLevel: "medium",
-    },
-    {
-        id: "10",
-        ngoName: "Bright Minds Foundation",
-        ngoProfileImage: "https://via.placeholder.com/300?text=NGO+Logo",
-        title: "Digital Literacy Campaign",
-        description: "Help us provide laptops and internet access to students in underserved communities.",
-        urgencyLevel: "medium",
-    },
-    {
-        id: "11",
-        ngoName: "Elderly Care Society",
-        ngoProfileImage: "https://via.placeholder.com/300?text=NGO+Logo",
-        title: "Home Care Kits",
-        description: "We are collecting donations to provide hygiene kits to elderly citizens in need.",
-        urgencyLevel: "low",
-    },
-    {
-        id: "12",
-        ngoName: "Health First Initiative",
-        ngoProfileImage: "https://via.placeholder.com/300?text=NGO+Logo",
-        title: "Vaccination Outreach",
-        description: "Support our campaign to vaccinate children in remote areas against preventable diseases.",
-        urgencyLevel: "high",
-    },
-    {
-        id: "13",
-        ngoName: "Green Coastline Project",
-        ngoProfileImage: "https://via.placeholder.com/300?text=NGO+Logo",
-        title: "Beach Cleanup Drive",
-        description: "Join us in cleaning up coastal areas and preserving marine biodiversity.",
-        urgencyLevel: "medium",
-    }
-];
+
